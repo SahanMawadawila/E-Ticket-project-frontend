@@ -3,10 +3,10 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import SupervisorAccountIcon from "@mui/icons-material/SupervisorAccount";
 import { IconButton } from "@mui/material";
+import SignIn from "./SignIn";
 
-function SignUp() {
+function SignInModal() {
   const [show, setShow] = useState(false);
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
@@ -19,22 +19,14 @@ function SignUp() {
         </IconButton>
       </div>
 
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>Woohoo, you are reading this text in a modal!</Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Save Changes
-          </Button>
-        </Modal.Footer>
+      <Modal show={show} onHide={handleClose} size="lg">
+        <Modal.Header closeButton></Modal.Header>
+        <Modal.Body>
+          <SignIn />
+        </Modal.Body>
       </Modal>
     </>
   );
 }
 
-export default SignUp;
+export default SignInModal;

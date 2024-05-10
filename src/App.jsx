@@ -1,13 +1,14 @@
-import NavBar from "./components/NavBar";
-import SlideShow from "./components/SlideShow";
-import SearchBar from "./components/SearchBar";
+import Header from "./components/Header";
+import Home from "./components/Home/Home";
 import Footer from "./components/Footer";
+import { Routes, Route } from "react-router-dom";
 function App() {
   return (
     <>
-      <NavBar />
-      <SlideShow />
-      <SearchBar />
+      <Header />
+      <Routes>
+        <Route path="/" element={<Home />} />
+      </Routes>
       <Footer />
     </>
   );

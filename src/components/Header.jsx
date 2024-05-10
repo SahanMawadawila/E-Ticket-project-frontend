@@ -1,7 +1,7 @@
-import SignUp from "./SignUp";
+import SignInModal from "./signIn/SignInModal";
 import React from "react";
 
-const NavBar = () => {
+const Header = () => {
   return (
     <div className=" p-1 pr-5 pl-5 p flex justify-between items-center">
       <div className="flex items-center">
@@ -17,9 +17,9 @@ const NavBar = () => {
           ESeats.lk
         </h1>
       </div>
-      <SignUp />
+      <SignInModal />
     </div>
   );
 };
 
-export default NavBar;
+export default Header;
