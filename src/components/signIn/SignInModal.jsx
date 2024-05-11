@@ -1,5 +1,4 @@
 import { useState } from "react";
-import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import SupervisorAccountIcon from "@mui/icons-material/SupervisorAccount";
 import { IconButton } from "@mui/material";
@@ -9,6 +8,10 @@ function SignInModal() {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const handleCloseModal = () => {
+    setShow(false);
+  };
 
   return (
     <>
@@ -22,7 +25,7 @@ function SignInModal() {
       <Modal show={show} onHide={handleClose} size="lg">
         <Modal.Header closeButton></Modal.Header>
         <Modal.Body>
-          <SignIn />
+          <SignIn handleCloseModal={handleCloseModal} />
         </Modal.Body>
       </Modal>
     </>

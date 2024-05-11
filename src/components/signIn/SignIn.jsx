@@ -3,13 +3,18 @@ import { useState } from "react";
 import Toggle from "./Toggle";
 import { useRef, useEffect } from "react";
 import axios from "../../api/axios";
+import AuthContext from "../../context/AuthContext";
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 
-const SignIn = () => {
+const SignIn = ({ handleCloseModal }) => {
+  const { setAuth } = useContext(AuthContext);
   const [adminSelected, setAdminSelected] = useState(true);
   const [user, setUser] = useState("");
   const [pwd, setPwd] = useState("");
   const [errMsg, setErrMsg] = useState("");
   const LOGIN_URL = adminSelected ? "/auth/admin" : "/auth/checker";
+  const navigate = useNavigate();
 
   const handleToggle = () => {
     setAdminSelected(!adminSelected);
@@ -31,7 +36,7 @@ const SignIn = () => {
 
     try {
       const response = await axios.post(
-        "/auth",
+        LOGIN_URL,
         JSON.stringify({ user, pwd }),
         {
           headers: { "Content-Type": "application/json" },
@@ -39,6 +44,13 @@ const SignIn = () => {
       );
       setUser("");
       setPwd("");
+      setAuth(
+        adminSelected
+          ? { admin: true, checker: false }
+          : { admin: false, checker: true }
+      );
+      navigate(adminSelected ? "/admin" : "/checker");
+      handleCloseModal();
     } catch (err) {
       if (!err?.response) {
         setErrMsg("No Server Response");
@@ -47,9 +59,9 @@ const SignIn = () => {
       } else if (err.response?.status === 401) {
         setErrMsg("Unauthorized");
       } else {
+        console.log(err);
         setErrMsg("Login Failed");
       }
-      errRef.current.focus();
     }
   };
   return (

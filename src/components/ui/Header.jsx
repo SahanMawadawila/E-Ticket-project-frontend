@@ -1,4 +1,4 @@
-import SignInModal from "./signIn/SignInModal";
+import SignInModal from "../signIn/SignInModal";
 import React from "react";
 
 const Header = () => {
