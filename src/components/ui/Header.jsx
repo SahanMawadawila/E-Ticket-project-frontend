@@ -1,7 +1,12 @@
 import SignInModal from "../signIn/SignInModal";
 import React from "react";
+import AuthContext from "../../context/AuthContext";
+import { useContext } from "react";
+import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
+import PersonIcon from "@mui/icons-material/Person";
 
 const Header = () => {
+  const { auth } = useContext(AuthContext);
   return (
     <div className=" p-1 pr-5 pl-5 p flex justify-between items-center">
       <div className="flex items-center">
@@ -17,7 +22,29 @@ const Header = () => {
           ESeats.lk
         </h1>
       </div>
-      <SignInModal />
+      {auth.admin ? (
+        <div className="flex flex-col justify-center items-center mr-3">
+          <p
+            className="text-base font-bold rounded-md m-0"
+            style={{ color: "#063970" }}
+          >
+            Admin
+          </p>
+          <AdminPanelSettingsIcon style={{ color: "#063970" }} />
+        </div>
+      ) : auth.checker ? (
+        <div className="flex flex-col justify-center items-center mr-3">
+          <p
+            className="text-base font-bold rounded-md m-0"
+            style={{ color: "#063970" }}
+          >
+            Checker
+          </p>
+          <PersonIcon style={{ color: "#063970" }} />
+        </div>
+      ) : (
+        <SignInModal />
+      )}
     </div>
   );
 };

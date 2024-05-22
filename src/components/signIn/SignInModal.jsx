@@ -17,8 +17,15 @@ function SignInModal() {
     <>
       <div className="flex items-center">
         <IconButton color="primary" onClick={handleShow}>
-          <SupervisorAccountIcon style={{ color: "#1e81b0" }} />
-          <p className="ml-2 text-black text-lg pt-2  font-bold">Log In</p>
+          <div className="flex justify-center items-center gap-1">
+            <SupervisorAccountIcon style={{ color: "#063970" }} />
+            <p
+              className="text-base pt-2  font-bold"
+              style={{ color: "#063970" }}
+            >
+              Log In
+            </p>
+          </div>
         </IconButton>
       </div>
 

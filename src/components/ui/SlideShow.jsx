@@ -1,20 +1,11 @@
 import React, { useRef, useState } from "react";
-// Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
-// Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-// import required modules
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 
-export default function App() {
-  const slides = [
-    "images/background4.jpg",
-    "images/background3.jpg",
-    "images/background1.jpg",
-    "images/background2.jpg",
-  ];
+export default function SlideShow({ slides, slideStyle, imageStyle, baseURL }) {
   return (
     <>
       <Swiper
@@ -29,13 +20,16 @@ export default function App() {
         }}
         navigation={true}
         modules={[Autoplay, Pagination, Navigation]}
-        className="mySwiper"
-        style={{ height: "80vh" }}
+        className={slideStyle}
       >
         {slides.map((slide, index) => {
           return (
             <SwiperSlide key={index}>
-              <img src={slide} alt={`Slide ${index + 1}`} />
+              <img
+                src={baseURL ? `${baseURL}/bus/${slide}` : slide}
+                alt={`Slide ${index + 1}`}
+                className={imageStyle}
+              />
             </SwiperSlide>
           );
         })}

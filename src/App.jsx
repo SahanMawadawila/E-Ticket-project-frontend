@@ -4,9 +4,10 @@ import { Routes, Route } from "react-router-dom";
 import AdminHome from "./components/admin/AdminHome";
 import RequireAdminAuth from "./components/admin/RequireAdminAuth";
 import { AuthProvider } from "./context/AuthContext";
-import Footer from "./components/ui/Footer";
 import CheckerHome from "./components/checker/CheckerHome";
 import RequireCheckerAuth from "./components/checker/RequireCheckerAuth";
+import AddBus from "./components/admin/AddBus";
+import Bus from "./components/admin/Bus";
 function App() {
   return (
     <>
@@ -17,6 +18,8 @@ function App() {
 
           <Route path="/admin" element={<RequireAdminAuth />}>
             <Route index element={<AdminHome />} />
+            <Route path="add-bus" element={<AddBus />} />
+            <Route path="bus/:id" element={<Bus />} />
           </Route>
 
           <Route path="/checker" element={<RequireCheckerAuth />}>
@@ -24,7 +27,6 @@ function App() {
           </Route>
         </Routes>
       </AuthProvider>
-      <Footer />
     </>
   );
 }
