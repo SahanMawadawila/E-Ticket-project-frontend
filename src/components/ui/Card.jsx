@@ -1,6 +1,8 @@
 import React from "react";
 import Zoom from "@mui/material/Zoom";
 import { Link } from "react-router-dom";
+import AuthContext from "../../context/AuthContext";
+import { useContext } from "react";
 
 const Card = ({
   routeNumber,
@@ -10,11 +12,18 @@ const Card = ({
   busName,
   url,
   busId,
+  input,
+  searchedDepartureTime,
+  searchedArrivalTime,
 }) => {
+  const { auth } = useContext(AuthContext);
   return (
     <Zoom in={true} style={{ transitionDelay: true ? "100ms" : "0ms" }}>
-      <Link to={`/admin/bus/${busId}`} className="no-underline">
-        <li className="flex  bg-gray-100 p-2 rounded-md">
+      <Link
+        to={auth.admin ? `/admin/bus/${busId}` : `/${busId}`}
+        className="no-underline"
+      >
+        <li className="flex  bg-gray-100 p-2 rounded-md hover:shadow-lg hover:bg-gray-200 transition duration-300 ease-in-out">
           <div>
             <img
               src={url}
@@ -39,13 +48,21 @@ const Card = ({
               </p>
 
               <p className="text-gray-600">
-                {`Departure Time from ${busFrom.city} :`}
-                <span className="text-gray-900"> {busFrom.departureTime}</span>
+                {`Departure Time from ${
+                  auth.admin ? busFrom.city : input.from
+                } :`}
+                <span className="text-gray-900">
+                  {" "}
+                  {auth.admin ? busFrom.departureTime : searchedDepartureTime}
+                </span>
               </p>
 
               <p className="text-gray-600">
-                {`Arrival Time at ${busTo.city} :`}
-                <span className="text-gray-900"> {busTo.arrivalTime}</span>
+                {`Arrival Time to ${auth.admin ? busTo.city : input.to} :`}
+                <span className="text-gray-900">
+                  {" "}
+                  {auth.admin ? busTo.arrivalTime : searchedArrivalTime}
+                </span>
               </p>
             </div>
           </div>

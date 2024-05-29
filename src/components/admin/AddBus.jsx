@@ -4,6 +4,7 @@ import ImageUploader from "../ui/ImageUploader";
 import axios from "../../api/axios";
 import { useNavigate } from "react-router-dom";
 import RouteTable from "./RouteTable";
+import WeekdaySelector from "../ui/weekDaySelector";
 
 const AddBus = () => {
   const REGEX_NUMBER = /^[\d/]+$/;
@@ -30,7 +31,7 @@ const AddBus = () => {
   const [cityError, setCityError] = useState(true);
   const [cityFocus, setCityFocus] = useState(false);
 
-  const [haltsError, setHaltsError] = useState(true);
+  const [haltsError, setHaltsError] = useState(false);
   const [haltsFocus, setHaltsFocus] = useState(false);
 
   const [images, setImages] = useState([]);
@@ -43,14 +44,15 @@ const AddBus = () => {
   });
 
   const [table, setTable] = useState([]);
+  const names = ["weekdays", "saturday", "sunday"];
+  const [selectedDays, setSelectedDays] = useState([]);
 
-  const pushBusToTable = (e) => {
-    console.log(oneRowOfTable);
+  const pushBusToTable = async (e) => {
     e.preventDefault();
     setTable([...table, oneRowOfTable]);
     setOneRowOfTable({
       city: "",
-      halts: "",
+      halts: 0,
       arrivalTime: oneRowOfTable.arrivalTime,
       departureTime: oneRowOfTable.departureTime,
     });
@@ -97,6 +99,14 @@ const AddBus = () => {
       formData.append("BusFrom", JSON.stringify(bus.BusFrom));
       formData.append("BusTo", JSON.stringify(bus.BusTo));
       formData.append("numberPlate", bus.numberPlate);
+      formData.append(
+        "selectedDays",
+        JSON.stringify({
+          weekDays: selectedDays.includes("weekdays") ? true : false,
+          saturday: selectedDays.includes("saturday") ? true : false,
+          sunday: selectedDays.includes("sunday") ? true : false,
+        })
+      );
       formData.append("table", JSON.stringify(table));
 
       for (let i = 0; i < images.length; i++) {
@@ -179,7 +189,8 @@ const AddBus = () => {
       !EndCityError &&
       !numberPlateError &&
       images.length > 0 &&
-      table.length > 0
+      table.length > 0 &&
+      selectedDays.length > 0
     ) {
       setSubmitErr(false);
     } else {
@@ -193,6 +204,7 @@ const AddBus = () => {
     numberPlateError,
     images,
     table,
+    selectedDays,
   ]);
 
   useEffect(() => {
@@ -381,6 +393,16 @@ const AddBus = () => {
                 />
               </div>
             </div>
+
+            <div className="flex flex-col  w-full md:w-auto mb-2 md:mb-0">
+              <label className="ml-2 p-1">Select Days:</label>
+              <WeekdaySelector
+                names={names}
+                personName={selectedDays}
+                setPersonName={setSelectedDays}
+              />
+            </div>
+
             <div className="flex flex-col  w-full md:w-auto mb-2 md:mb-0">
               <label className="ml-2 p-1">Number Plate:</label>
               {numberPlateError && numberPlateFocus && (
@@ -416,7 +438,10 @@ const AddBus = () => {
                 placeholder="City"
                 className="border-2 border-gray-300 rounded-md p-2 flex-grow ml-2"
                 onChange={(e) => {
-                  setOneRowOfTable({ ...oneRowOfTable, city: e.target.value });
+                  setOneRowOfTable({
+                    ...oneRowOfTable,
+                    city: e.target.value.toLowerCase(),
+                  });
                 }}
                 value={oneRowOfTable.city}
                 onFocus={() => setCityFocus(true)}

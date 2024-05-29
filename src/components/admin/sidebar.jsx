@@ -22,7 +22,7 @@ function Sidebar() {
     }
   }, [wantToLogout]);
   return (
-    <div className="md:h-full   ">
+    <div className="md:h-full md:pr-8">
       <div className="flex md:flex-col justify-items-start gap-2 pt-2 pb-6 ">
         <input
           type="search"

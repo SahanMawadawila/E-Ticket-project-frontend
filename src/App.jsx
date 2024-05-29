@@ -8,25 +8,32 @@ import CheckerHome from "./components/checker/CheckerHome";
 import RequireCheckerAuth from "./components/checker/RequireCheckerAuth";
 import AddBus from "./components/admin/AddBus";
 import Bus from "./components/admin/Bus";
+import { DataProvider } from "./context/DataContext";
+import CustomerBus from "./components/Home/CustomerBus";
 function App() {
   return (
     <>
-      <AuthProvider>
-        <Header />
-        <Routes>
-          <Route path="/" element={<Home />} />
+      <DataProvider>
+        <AuthProvider>
+          <Header />
+          <Routes>
+            <Route path="/">
+              <Route index element={<Home />} />
+              <Route path=":id" element={<CustomerBus />} />
+            </Route>
 
-          <Route path="/admin" element={<RequireAdminAuth />}>
-            <Route index element={<AdminHome />} />
-            <Route path="add-bus" element={<AddBus />} />
-            <Route path="bus/:id" element={<Bus />} />
-          </Route>
+            <Route path="/admin" element={<RequireAdminAuth />}>
+              <Route index element={<AdminHome />} />
+              <Route path="add-bus" element={<AddBus />} />
+              <Route path="bus/:id" element={<Bus />} />
+            </Route>
 
-          <Route path="/checker" element={<RequireCheckerAuth />}>
-            <Route index element={<CheckerHome />} />
-          </Route>
-        </Routes>
-      </AuthProvider>
+            <Route path="/checker" element={<RequireCheckerAuth />}>
+              <Route index element={<CheckerHome />} />
+            </Route>
+          </Routes>
+        </AuthProvider>
+      </DataProvider>
     </>
   );
 }

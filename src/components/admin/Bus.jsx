@@ -18,14 +18,31 @@ const Bus = () => {
   const slideStyle = "w-96 h-96";
   const imageStyle =
     "object-cover h-full w-full object-center rounded-md shadow-2xl";
-  console.log(id);
+
+  const getDays = (selectedDays) => {
+    let days = "";
+    for (let key in selectedDays) {
+      if (selectedDays[key] === true) {
+        if (key === "weekDays") key = "Week Days";
+        days += key + "/";
+      }
+    }
+    if (days.charAt(days.length - 1) === "/") {
+      days = days.slice(0, -1);
+    }
+    return days;
+  };
   useEffect(() => {
     const fetchBus = async () => {
       try {
         const response = await axios.get(`/bus/${id}`);
         setResponseData(response.data);
         setLoading(false);
-        console.log(response.data);
+        console.log(response.data.selectedDays);
+        setResponseData({
+          ...response.data,
+          days: getDays(response.data.selectedDays),
+        });
       } catch (err) {
         console.log(err);
       }
@@ -103,6 +120,9 @@ const Bus = () => {
             <br />
             Arrival Time:{" "}
             <span className="text-black">{responseData.busTo.arrivalTime}</span>
+          </p>
+          <p className="text:lg md:text-xl font-semibold text-gray-500">
+            Days : <span className="text-black">{responseData.days}</span>{" "}
           </p>
         </div>
       </div>
