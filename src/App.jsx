@@ -10,6 +10,7 @@ import AddBus from "./components/admin/AddBus";
 import Bus from "./components/admin/Bus";
 import { DataProvider } from "./context/DataContext";
 import CustomerBus from "./components/Home/CustomerBus";
+
 function App() {
   return (
     <>
@@ -19,7 +20,7 @@ function App() {
           <Routes>
             <Route path="/">
               <Route index element={<Home />} />
-              <Route path=":id" element={<CustomerBus />} />
+              <Route path="/:id" element={<CustomerBus />} />
             </Route>
 
             <Route path="/admin" element={<RequireAdminAuth />}>

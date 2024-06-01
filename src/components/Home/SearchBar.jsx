@@ -21,10 +21,12 @@ const SearchBar = ({
   setSearching,
   input,
   setInput,
+  setError,
+  error,
+  setDate,
+  date,
 }) => {
   const cities = useContext(DataContext);
-  const [date, setDate] = useState(dayjs());
-
   const [searchDisabled, setSearchDisabled] = useState(true);
 
   useEffect(() => {
@@ -42,7 +44,7 @@ const SearchBar = ({
     const search = {
       from: input.from,
       to: input.to,
-      date: date.format("YYYY-MM-DD"),
+      date: date,
     };
     try {
       const response = await axios.post("/search", search);
@@ -54,14 +56,28 @@ const SearchBar = ({
       setSearchResults(response.data);
       setSearching(false);
     } catch (err) {
+      if (err.response.status === 400) {
+        if (err.response.data.message) {
+          setError(err.response.data.message);
+        } else {
+          setError("Something went wrong");
+        }
+      }
+
+      setError("Something went wrong");
       setNoContent(true);
       setSearching(false);
       console.log(err);
     }
   };
 
+  useEffect(() => {
+    setError("");
+  }, [input, date]);
+
   return (
     <div className="flex-col  shadow-2xl md:max-w-[75vw] lg:max-w-[50vw] mx-w-[100vw] mx-auto p-6">
+      {error && <p className="text-red-500 text-center">{error}</p>}
       <p className="text-center  bg-cyan-600 text-white font-bold rounded-md ">
         Online Seat Reservation
       </p>

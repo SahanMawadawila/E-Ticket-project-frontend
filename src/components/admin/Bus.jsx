@@ -78,8 +78,13 @@ const Bus = () => {
 
   if (loading) return <Loading />;
   return (
-    <div className="md:max-w-[90vw] mx-auto p-6 shadow-2xl max-w-[100vw] ">
-      <div className="flex flex-col md:flex-row items-center flex-wrap gap-5 border-gray-200 border-2 p-2 rounded-md">
+    <div className=" mx-auto p-6 shadow-2xl max-w-[100vw] ">
+      <div className="bg-blue-500 text-white text-center py-2 rounded-t-lg mb-2">
+        <h2 className="text-xl font-bold">
+          Route # {responseData.routeNumber}
+        </h2>
+      </div>
+      <div className="flex flex-col md:flex-row items-center  gap-5 border-gray-200 border-2 p-2 rounded-md">
         <div>
           <SlideShow
             baseURL={baseURL}
@@ -88,45 +93,80 @@ const Bus = () => {
             imageStyle={imageStyle}
           />
         </div>
-        <div className="flex flex-col gap-1 md:gap-4 justify-start">
-          <h1
-            className="text-2xl md:text-3xl font-bold 
-          bg-gradient-to-r from-sky-600 to-cyan-400 p-2 rounded-md
-         text-white"
-          >{`${responseData.routeNumber} - ${responseData.busFrom.city} to ${responseData.busTo.city}`}</h1>
-          <p className="text:lg md:text-xl font-semibold text-gray-500">
-            Bus/Company Name:{" "}
-            <span className="text-black">{responseData.busName}</span>
-          </p>
-          <p className="text:lg md:text-xl font-semibold text-gray-500">
-            Number Plate:{" "}
-            <span className="text-black">{responseData.numberPlate}</span>
-          </p>
-          <p className="text:lg md:text-xl font-semibold text-gray-500">
-            Capacity:{" "}
-            <span className="text-black">{responseData.capacity}</span>
-          </p>
-          <p className="text:lg md:text-xl font-semibold text-gray-500">
-            From :{" "}
-            <span className="text-black">{responseData.busFrom.city}</span>{" "}
-            <br />
-            Departure Time:{" "}
-            <span className="text-black">
-              {responseData.busFrom.departureTime}
-            </span>
-          </p>
-          <p className="text:lg md:text-xl font-semibold text-gray-500">
-            To : <span className="text-black">{responseData.busTo.city}</span>{" "}
-            <br />
-            Arrival Time:{" "}
-            <span className="text-black">{responseData.busTo.arrivalTime}</span>
-          </p>
-          <p className="text:lg md:text-xl font-semibold text-gray-500">
-            Days : <span className="text-black">{responseData.days}</span>{" "}
-          </p>
+        <div className="flex flex-row w-full justify-evenly">
+          <div className="flex flex-col justify-center ">
+            <div>
+              <p className="text-gray-600 mb-0 ">Departure From :</p>
+              <p className="text-gray-900 font-semibold ">
+                {responseData.busFrom.city}
+              </p>
+            </div>
+
+            <div>
+              <p className="text-gray-600 mb-0 ">Departure Time:</p>
+              <p className="text-gray-900 font-semibold ">
+                {responseData.busFrom.departureTime}
+              </p>
+            </div>
+
+            <div>
+              <p className="text-gray-600 mb-0 ">Bus/Company :</p>
+              <p className="text-gray-900 font-semibold ">
+                {responseData.busName}
+              </p>
+            </div>
+            <div>
+              <p className="text-gray-600 mb-0 ">Capacity :</p>
+              <p className="text-gray-900 font-semibold ">
+                {responseData.capacity}
+              </p>
+            </div>
+            <div>
+              <p className="text-gray-600 mb-0 ">Min Halts Allowed :</p>
+              <p className="text-gray-900 font-semibold ">
+                {responseData.minHalts}
+              </p>
+            </div>
+          </div>
+          <div className="flex flex-col justify-center">
+            <img src="../../images/arrow.png" alt="" />
+            <div>
+              <p className="text-gray-600 mt-3 mb-0">Duration</p>
+              <p className="text-gray-900 font-semibold ">5hrs</p>
+            </div>
+          </div>
+          <div className="flex flex-col justify-center">
+            <div>
+              <p className="text-gray-600 mb-0 ">Arrival To :</p>
+              <p className="text-gray-900 font-semibold ">
+                {responseData.busTo.city}
+              </p>
+            </div>
+            <div>
+              <p className="text-gray-600 mb-0 ">Arrival Time</p>
+              <p className="text-gray-900 font-semibold ">
+                {responseData.busTo.arrivalTime}
+              </p>
+            </div>
+            <div>
+              <p className="text-gray-600 mb-0 ">Number Plate :</p>
+              <p className="text-gray-900 font-semibold ">
+                {responseData.numberPlate}
+              </p>
+            </div>
+            <div>
+              <p className="text-gray-600 mb-0 ">Days :</p>
+              <p className="text-gray-900 font-semibold ">
+                {responseData.days}
+              </p>
+            </div>
+          </div>
         </div>
       </div>
       <hr />
+      <div className="bg-green-600 text-white text-center py-2  mb-2">
+        <h2 className="text-xl font-bold">Seats</h2>
+      </div>
       <SeatArrangement seats={responseData.seats} />
       <hr />
 

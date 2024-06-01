@@ -34,6 +34,9 @@ const AddBus = () => {
   const [haltsError, setHaltsError] = useState(false);
   const [haltsFocus, setHaltsFocus] = useState(false);
 
+  const [minHaltsError, setMinHaltsError] = useState(false);
+  const [minHaltsFocus, setMinHaltsFocus] = useState(false);
+
   const [images, setImages] = useState([]);
 
   const [oneRowOfTable, setOneRowOfTable] = useState({
@@ -77,6 +80,7 @@ const AddBus = () => {
       arrivalTime: "",
     },
     numberPlate: "",
+    minHalts: 80,
   });
 
   const [submitErr, setSubmitErr] = useState(true);
@@ -99,6 +103,7 @@ const AddBus = () => {
       formData.append("BusFrom", JSON.stringify(bus.BusFrom));
       formData.append("BusTo", JSON.stringify(bus.BusTo));
       formData.append("numberPlate", bus.numberPlate);
+      formData.append("minHalts", bus.minHalts);
       formData.append(
         "selectedDays",
         JSON.stringify({
@@ -132,6 +137,7 @@ const AddBus = () => {
           arrivalTime: "",
         },
         numberPlate: "",
+        minHalts: 80,
       });
       setImages([]);
       navigate("/admin");
@@ -217,6 +223,13 @@ const AddBus = () => {
       setHaltsError(true);
     }
   }, [oneRowOfTable.halts]);
+
+  useEffect(() => {
+    setMinHaltsError(!REGEX_ALLOCATED_SEATS.test(bus.minHalts));
+    if (bus.minHalts < 0 || bus.minHalts > 350) {
+      setMinHaltsError(true);
+    }
+  }, [bus.minHalts]);
 
   useEffect(() => {
     setErrMsg("");
@@ -418,6 +431,24 @@ const AddBus = () => {
                 value={bus.numberPlate}
                 onFocus={() => setNumberPlateFocus(true)}
                 onBlur={() => setNumberPlateFocus(false)}
+              />
+            </div>
+            <div className="flex flex-col  w-full md:w-auto mb-2 md:mb-0">
+              {minHaltsError && minHaltsFocus && (
+                <p className="text-red-500 ml-2">Min Halts is invalid</p>
+              )}
+              <label className="ml-2 p-1">Min Halts Allowed:</label>
+              <input
+                type="number"
+                placeholder="80"
+                className="border-2 border-gray-300 rounded-md p-2 flex-grow ml-2"
+                onChange={(e) => {
+                  setBus({ ...bus, minHalts: e.target.value });
+                }}
+                value={bus.minHalts}
+                onFocus={() => setMinHaltsFocus(true)}
+                onBlur={() => setMinHaltsFocus(false)}
+                max={350}
               />
             </div>
           </div>

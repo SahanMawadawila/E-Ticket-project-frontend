@@ -2,7 +2,7 @@ import React from "react";
 import Card from "./Card";
 import { baseURL } from "../../api/axios";
 
-const Feed = ({ buses, noContent, input }) => {
+const Feed = ({ buses, noContent, input, date }) => {
   return (
     <div className="flex-grow">
       <ul
@@ -27,6 +27,9 @@ const Feed = ({ buses, noContent, input }) => {
               searchedDepartureTime={bus.searchedDepartureTime}
               searchedArrivalTime={bus.searchedArrivalTime}
               url={`${baseURL}/bus/${bus.imagesURLs[0]}`}
+              date={date}
+              actualPrice={bus.actualPrice}
+              thisBusPrice={bus.thisBusPrice}
             />
           ))
         )}

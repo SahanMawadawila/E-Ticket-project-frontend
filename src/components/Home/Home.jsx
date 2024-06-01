@@ -5,6 +5,10 @@ import React, { useEffect } from "react";
 import AuthContext from "../../context/AuthContext";
 import { useContext, useState } from "react";
 import Feed from "../ui/Feed";
+import dayjs from "dayjs";
+
+//context
+import { createContext } from "react";
 
 const Home = () => {
   const { setAuth } = useContext(AuthContext);
@@ -16,7 +20,11 @@ const Home = () => {
   const [noContent, setNoContent] = useState(false);
   const [searching, setSearching] = useState(false);
   const [error, setError] = useState([]);
-  const [input, setInput] = useState({ from: "", to: "" });
+  const [date, setDate] = useState(dayjs());
+  const [input, setInput] = useState({
+    from: "",
+    to: "",
+  });
 
   const slides = [
     "images/background4.jpg",
@@ -42,15 +50,24 @@ const Home = () => {
         setSearching={setSearching}
         input={input}
         setInput={setInput}
+        setDate={setDate}
+        date={date}
+        setError={setError}
+        error={error}
       />
       <div className="md:p-8 mx-auto shadow-2xl max-w-[100vw]">
-        {searching && (
+        {!error && searching && (
           <div className="flex justify-center items-center h-96">
             Searching....
           </div>
         )}
-        {!searching && (
-          <Feed buses={searchResults} noContent={noContent} input={input} />
+        {!error && !searching && (
+          <Feed
+            buses={searchResults}
+            noContent={noContent}
+            input={input}
+            date={date}
+          />
         )}
       </div>
 
