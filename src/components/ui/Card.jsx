@@ -5,6 +5,7 @@ import AuthContext from "../../context/AuthContext";
 import { useContext } from "react";
 import dayjs from "dayjs";
 import subtractTime from "../../utils/subtractTime";
+import formatNumber from "../../utils/formatNumber";
 
 const Card = ({
   routeNumber,
@@ -20,6 +21,7 @@ const Card = ({
   date,
   actualPrice,
   thisBusPrice,
+  totalAvailableSeats,
 }) => {
   const { auth } = useContext(AuthContext);
   return (
@@ -43,7 +45,9 @@ const Card = ({
             <div className="flex flex-col justify-center ">
               <div>
                 <p className="text-gray-600 mb-0 ">Departure From :</p>
-                <p className="text-gray-900 font-semibold ">{busFrom.city}</p>
+                <p className="text-gray-900 font-semibold ">
+                  {auth.admin ? busFrom.city : input.from}
+                </p>
               </div>
               {!auth.admin && (
                 <div>
@@ -78,7 +82,9 @@ const Card = ({
             <div className="flex flex-col justify-center">
               <div>
                 <p className="text-gray-600 mb-0 ">Arrival To :</p>
-                <p className="text-gray-900 font-semibold ">{busTo.city}</p>
+                <p className="text-gray-900 font-semibold ">
+                  {auth.admin ? busTo.city : input.to}
+                </p>
               </div>
               {!auth.admin && (
                 <div>
@@ -114,7 +120,9 @@ const Card = ({
               {!auth.admin && (
                 <div>
                   <p className="text-gray-600 mb-0 ">Available seats :</p>
-                  <p className="text-gray-900 font-semibold ">0</p>
+                  <p className="text-gray-900 font-semibold ">
+                    {totalAvailableSeats}
+                  </p>
                 </div>
               )}
             </div>
@@ -126,7 +134,7 @@ const Card = ({
                   Normal Ticket Price :{" "}
                 </div>
                 <div className="text-gray-900 font-semibold inline-block">
-                  &nbsp;Rs. {actualPrice}
+                  &nbsp;Rs. {formatNumber(actualPrice)}
                 </div>
               </div>
               <div>
@@ -134,7 +142,7 @@ const Card = ({
                   This Bus Price :{" "}
                 </div>
                 <div className="text-gray-900 font-semibold inline-block text-xl">
-                  &nbsp;Rs. {thisBusPrice}
+                  &nbsp;Rs. {formatNumber(thisBusPrice)}
                 </div>
               </div>
             </div>

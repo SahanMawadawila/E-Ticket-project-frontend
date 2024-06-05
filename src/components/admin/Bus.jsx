@@ -9,6 +9,7 @@ import RouteTable from "./RouteTable";
 import ConfirmModal from "../ui/ConfirmModal";
 import { useNavigate } from "react-router-dom";
 import SeatArrangement from "./SeatArrangement";
+import getDays from "../../utils/getDays";
 
 const Bus = () => {
   const { id } = useParams();
@@ -19,26 +20,12 @@ const Bus = () => {
   const imageStyle =
     "object-cover h-full w-full object-center rounded-md shadow-2xl";
 
-  const getDays = (selectedDays) => {
-    let days = "";
-    for (let key in selectedDays) {
-      if (selectedDays[key] === true) {
-        if (key === "weekDays") key = "Week Days";
-        days += key + "/";
-      }
-    }
-    if (days.charAt(days.length - 1) === "/") {
-      days = days.slice(0, -1);
-    }
-    return days;
-  };
   useEffect(() => {
     const fetchBus = async () => {
       try {
         const response = await axios.get(`/bus/${id}`);
         setResponseData(response.data);
         setLoading(false);
-        console.log(response.data.selectedDays);
         setResponseData({
           ...response.data,
           days: getDays(response.data.selectedDays),

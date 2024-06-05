@@ -16,7 +16,6 @@ import { Autocomplete, TextField } from "@mui/material";
 import DateRangeIcon from "@mui/icons-material/DateRange";
 
 const SearchBar = ({
-  setSearchResults,
   setNoContent,
   setSearching,
   input,
@@ -25,8 +24,9 @@ const SearchBar = ({
   error,
   setDate,
   date,
+  setSearchResults,
 }) => {
-  const cities = useContext(DataContext);
+  const { cities } = useContext(DataContext);
   const [searchDisabled, setSearchDisabled] = useState(true);
 
   useEffect(() => {
@@ -54,6 +54,7 @@ const SearchBar = ({
         return;
       }
       setSearchResults(response.data);
+
       setSearching(false);
     } catch (err) {
       if (err.response.status === 400) {

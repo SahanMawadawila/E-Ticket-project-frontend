@@ -5,26 +5,19 @@ import React, { useEffect } from "react";
 import AuthContext from "../../context/AuthContext";
 import { useContext, useState } from "react";
 import Feed from "../ui/Feed";
-import dayjs from "dayjs";
-
-//context
-import { createContext } from "react";
+import { DataContext } from "../../context/DataContext";
 
 const Home = () => {
   const { setAuth } = useContext(AuthContext);
+  const { searchResults, setSearchResults, input, setInput, date, setDate } =
+    useContext(DataContext);
   useEffect(() => {
     setAuth({ admin: false, checker: false });
   }, []);
 
-  const [searchResults, setSearchResults] = useState([]);
   const [noContent, setNoContent] = useState(false);
   const [searching, setSearching] = useState(false);
   const [error, setError] = useState([]);
-  const [date, setDate] = useState(dayjs());
-  const [input, setInput] = useState({
-    from: "",
-    to: "",
-  });
 
   const slides = [
     "images/background4.jpg",

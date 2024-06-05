@@ -30,6 +30,7 @@ const Feed = ({ buses, noContent, input, date }) => {
               date={date}
               actualPrice={bus.actualPrice}
               thisBusPrice={bus.thisBusPrice}
+              totalAvailableSeats={bus.totalAvailableSeats}
             />
           ))
         )}
