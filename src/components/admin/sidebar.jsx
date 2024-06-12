@@ -8,7 +8,7 @@ import { useState, useEffect } from "react";
 import AuthContext from "../../context/AuthContext";
 import { useContext } from "react";
 
-function Sidebar() {
+function Sidebar({ search, setSearch }) {
   const [show, setShow] = useState(false);
   const [wantToLogout, setWantToLogout] = useState(false);
   const handleClose = () => setShow(false);
@@ -30,6 +30,8 @@ function Sidebar() {
           className="border-2 border-gray-300 rounded-md p-2 m-2 
           hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-sky-600 focus
           "
+          onChange={(e) => setSearch(e.target.value)}
+          value={search}
         />
         <button
           className="flex items-center space-x-4 bg-sky-600 hover:bg-gradient-to-r from-sky-600 to-cyan-400 px-3 py-3 hover: text-white"

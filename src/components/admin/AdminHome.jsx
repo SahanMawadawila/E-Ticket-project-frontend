@@ -11,6 +11,8 @@ const AdminHome = () => {
   const [buses, setBuses] = useState([]);
   const [noContent, setNoContent] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState("");
+  const [filteredBuses, setFilteredBuses] = useState([]);
 
   useEffect(() => {
     const fetchBuses = async () => {
@@ -26,13 +28,26 @@ const AdminHome = () => {
 
     fetchBuses();
   }, []);
+
+  useEffect(() => {
+    setFilteredBuses(
+      buses.filter(
+        (bus) =>
+          bus.numberPlate.toLowerCase().includes(search.toLowerCase()) ||
+          bus.routeNumber.includes(search) ||
+          bus.busFrom.city.toLowerCase().includes(search.toLowerCase()) ||
+          bus.busTo.city.toLowerCase().includes(search.toLowerCase())
+      )
+    );
+  }, [search, buses]);
+
   if (loading) return <Loading />;
   return (
     <div className="flex md:justify-items-start flex-col md:flex-row">
       <div>
-        <Sidebar />
+        <Sidebar search={search} setSearch={setSearch} />
       </div>
-      <Feed buses={buses} noContent={noContent} />
+      <Feed buses={filteredBuses} noContent={noContent} />
     </div>
   );
 };
