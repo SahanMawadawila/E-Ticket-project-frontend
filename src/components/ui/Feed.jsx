@@ -7,7 +7,7 @@ const Feed = ({ buses, noContent, input, date }) => {
     <div className="flex-grow">
       <ul
         className="flex flex-col pl-0 md:p-3 
-      border-2 border-gray-200 rounded-m gap-2
+        rounded-m gap-2
       "
         style={{ listStyleType: "none" }}
       >

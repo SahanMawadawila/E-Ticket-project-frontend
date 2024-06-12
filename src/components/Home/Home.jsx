@@ -15,6 +15,10 @@ const Home = () => {
     setAuth({ admin: false, checker: false });
   }, []);
 
+  useEffect(() => {
+    setSearchResults([]);
+  }, [input, date]);
+
   const [noContent, setNoContent] = useState(false);
   const [searching, setSearching] = useState(false);
   const [error, setError] = useState([]);
@@ -48,7 +52,8 @@ const Home = () => {
         setError={setError}
         error={error}
       />
-      <div className="md:p-8 mx-auto shadow-2xl max-w-[100vw]">
+
+      <div className="md:p-8 mx-auto shadow-2xl max-w-[100vw] ">
         {!error && searching && (
           <div className="flex justify-center items-center h-96">
             Searching....
