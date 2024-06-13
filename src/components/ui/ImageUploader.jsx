@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
 
-function Previews({ setImages }) {
+function ImageUploader({ setImages }) {
   const [acceptFileError, setAcceptFileError] = useState(false);
   const [files, setFiles] = useState([]);
   const { getRootProps, getInputProps, fileRejections } = useDropzone({
@@ -86,4 +86,4 @@ function Previews({ setImages }) {
   );
 }
 
-export default Previews;
+export default ImageUploader;

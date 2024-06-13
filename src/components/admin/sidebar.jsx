@@ -41,7 +41,10 @@ function Sidebar({ search, setSearch }) {
           <p className="font-bold hidden md:inline-block">Add Bus</p>
         </button>
 
-        <button className="flex items-center space-x-4  bg-sky-600 hover:bg-gradient-to-r from-sky-600 to-cyan-400 px-3 py-3 hover: text-white">
+        <button
+          className="flex items-center space-x-4  bg-sky-600 hover:bg-gradient-to-r from-sky-600 to-cyan-400 px-3 py-3 hover: text-white"
+          onClick={() => navigate("/admin/add-checker")}
+        >
           <PersonAddIcon />
           <p className="font-bold hidden md:inline-block">Add Checker</p>
         </button>
