@@ -4,6 +4,7 @@ import TextField from "@mui/material/TextField";
 import axios from "../../api/axios";
 import { useState, useEffect } from "react";
 import ImageUploadForPerson from "../ui/ImageUploadForPerson";
+import { useNavigate } from "react-router-dom";
 
 const AddChecker = () => {
   const phoneRegex = /^\d{10}$/;
@@ -21,6 +22,8 @@ const AddChecker = () => {
   const [telephoneError, setTelephoneError] = useState(false);
   const [telephoneFocus, setTelephoneFocus] = useState(false);
   const [confirmPasswordError, setConfirmPasswordError] = useState(false);
+  const [logInError, setLogInError] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCompanies = async () => {
@@ -38,6 +41,43 @@ const AddChecker = () => {
     };
   }, []);
 
+  // Handle form submission
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (
+      confirmPasswordError ||
+      telephoneError ||
+      !image ||
+      !input.companyName ||
+      !input.email ||
+      !input.name ||
+      !input.password ||
+      !input.telephone
+    ) {
+      setLogInError("Missing fields");
+      return;
+    }
+    try {
+      const formData = new FormData();
+      formData.append("name", input.name);
+      formData.append("password", input.password);
+      formData.append("email", input.email);
+      formData.append("telephone", input.telephone);
+      formData.append("companyName", input.companyName);
+      formData.append("image", image);
+      await axios.post("/checkers", formData);
+      navigate("/admin");
+    } catch (err) {
+      if (err.response.status === 400) {
+        setLogInError("Missing fields");
+      } else if (err.response.status === 409) {
+        setLogInError("User already exists");
+      } else {
+        setLogInError("Server error");
+      }
+    }
+  };
+
   useEffect(() => {
     if (input.password !== confirmPassword) {
       setConfirmPasswordError(true);
@@ -53,12 +93,19 @@ const AddChecker = () => {
     };
   }, [image]);
 
+  useEffect(() => {
+    setLogInError("");
+  }, [input]);
+
   return (
     <div className=" md:max-w-[50vw] mx-auto p-6 shadow-2xl max-w-[80vw]">
       <form>
         <p className="text-center  bg-green-600 text-white font-bold rounded-md ">
           Add Checker
         </p>
+        {logInError && (
+          <p className="text-red-500 text-sm text-center">{logInError}</p>
+        )}
         <div className="flex flex-col justify-center items-center">
           <img
             src={image ? image : "../../images/profile.png"}
@@ -176,7 +223,10 @@ const AddChecker = () => {
           </div>
         </div>
         <div className="flex justify-end mt-4">
-          <button className="bg-green-500 text-white font-bold py-2 px-4 rounded hover:bg-green-600">
+          <button
+            className="bg-green-500 text-white font-bold py-2 px-4 rounded hover:bg-green-600"
+            onClick={handleSubmit}
+          >
             Register
           </button>
         </div>
