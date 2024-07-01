@@ -26,7 +26,7 @@ const Feed = ({ buses, noContent, input, date }) => {
               input={input}
               searchedDepartureTime={bus.searchedDepartureTime}
               searchedArrivalTime={bus.searchedArrivalTime}
-              url={`${baseURL}/bus/${bus.imagesURLs[0]}`}
+              url={`${baseURL}/bus/busses/${bus.imagesURLs[0]}`}
               date={date}
               actualPrice={bus.actualPrice}
               thisBusPrice={bus.thisBusPrice}

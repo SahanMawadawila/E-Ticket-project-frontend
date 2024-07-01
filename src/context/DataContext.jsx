@@ -11,6 +11,7 @@ export const DataProvider = ({ children }) => {
     from: "",
     to: "",
   });
+  const [busView, setBusView] = useState(true);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -33,6 +34,8 @@ export const DataProvider = ({ children }) => {
         input,
         setInput,
         date,
+        busView,
+        setBusView,
       }}
     >
       {children}

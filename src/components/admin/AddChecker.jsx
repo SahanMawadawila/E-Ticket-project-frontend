@@ -10,6 +10,7 @@ const AddChecker = () => {
   const phoneRegex = /^\d{10}$/;
   const [companies, setCompanies] = useState([]);
   const [image, setImage] = useState(null);
+  const [imageFile, setImageFile] = useState(null); // [1
   const [input, setInput] = useState({
     name: "",
     password: "",
@@ -64,7 +65,7 @@ const AddChecker = () => {
       formData.append("email", input.email);
       formData.append("telephone", input.telephone);
       formData.append("companyName", input.companyName);
-      formData.append("image", image);
+      formData.append("image", imageFile);
       await axios.post("/checkers", formData);
       navigate("/admin");
     } catch (err) {
@@ -115,7 +116,10 @@ const AddChecker = () => {
              "
           />
           <div>
-            <ImageUploadForPerson setImage={setImage} />
+            <ImageUploadForPerson
+              setImage={setImage}
+              setImageFile={setImageFile}
+            />
           </div>
         </div>
 

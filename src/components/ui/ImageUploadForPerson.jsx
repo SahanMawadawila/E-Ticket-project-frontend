@@ -15,7 +15,7 @@ const VisuallyHiddenInput = styled("input")({
   width: 1,
 });
 
-export default function ImageUploadForPerson({ setImage }) {
+export default function ImageUploadForPerson({ setImage, setImageFile }) {
   return (
     <Button
       component="label"
@@ -35,6 +35,7 @@ export default function ImageUploadForPerson({ setImage }) {
         type="file"
         onChange={(e) => {
           setImage(URL.createObjectURL(e.target.files[0]));
+          setImageFile(e.target.files[0]);
         }}
       />
     </Button>

@@ -6,13 +6,17 @@ import { useNavigate } from "react-router-dom";
 import ConfirmModal from "../ui/ConfirmModal";
 import { useState, useEffect } from "react";
 import AuthContext from "../../context/AuthContext";
+import AirportShuttleIcon from "@mui/icons-material/AirportShuttle";
+import GroupsIcon from "@mui/icons-material/Groups";
 import { useContext } from "react";
+import { DataContext } from "../../context/DataContext";
 
 function Sidebar({ search, setSearch }) {
   const [show, setShow] = useState(false);
   const [wantToLogout, setWantToLogout] = useState(false);
   const handleClose = () => setShow(false);
   const { setAuth } = useContext(AuthContext);
+  const { setBusView } = useContext(DataContext);
   const navigate = useNavigate();
   useEffect(() => {
     if (wantToLogout) {
@@ -47,6 +51,20 @@ function Sidebar({ search, setSearch }) {
         >
           <PersonAddIcon />
           <p className="font-bold hidden md:inline-block">Add Checker</p>
+        </button>
+        <button
+          className="flex items-center space-x-4  bg-sky-600 hover:bg-gradient-to-r from-sky-600 to-cyan-400 px-3 py-3 hover: text-white"
+          onClick={() => setBusView(true)}
+        >
+          <AirportShuttleIcon />
+          <p className="font-bold hidden md:inline-block">View Buses</p>
+        </button>
+        <button
+          className="flex items-center space-x-4  bg-sky-600 hover:bg-gradient-to-r from-sky-600 to-cyan-400 px-3 py-3 hover: text-white"
+          onClick={() => setBusView(false)}
+        >
+          <GroupsIcon />
+          <p className="font-bold hidden md:inline-block">View Checkers</p>
         </button>
         <button
           className="flex items-center space-x-4  bg-sky-600  hover:bg-gradient-to-r from-sky-600 to-cyan-400 px-3 py-3 hover: text-white"

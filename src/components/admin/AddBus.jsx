@@ -5,6 +5,8 @@ import axios from "../../api/axios";
 import { useNavigate } from "react-router-dom";
 import RouteTable from "./RouteTable";
 import WeekdaySelector from "../ui/weekDaySelector";
+import { useContext } from "react";
+import { DataContext } from "../../context/DataContext";
 
 const AddBus = () => {
   const REGEX_NUMBER = /^[\d/]+$/;
@@ -12,6 +14,9 @@ const AddBus = () => {
   const REGEX_CITY = /^[A-Za-z ]+$/;
   const REGISTER_URL = "/bus";
   const REGEX_NUMBERPLATE = /^[A-Z]{2,3}-\d{4}$/;
+
+  const { setBusView } = useContext(DataContext);
+  setBusView(true);
 
   const [routeNumberError, setRouteNumberError] = useState(true);
   const [routeNumberFocus, setRouteNumberFocus] = useState(false);

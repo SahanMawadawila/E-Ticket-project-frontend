@@ -26,7 +26,7 @@ export default function SlideShow({ slides, slideStyle, imageStyle, baseURL }) {
           return (
             <SwiperSlide key={index}>
               <img
-                src={baseURL ? `${baseURL}/bus/${slide}` : slide}
+                src={baseURL ? `${baseURL}/bus/busses/${slide}` : slide}
                 alt={`Slide ${index + 1}`}
                 className={imageStyle}
               />
