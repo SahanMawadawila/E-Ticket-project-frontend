@@ -5,8 +5,7 @@ import axios from "../../api/axios";
 import { useEffect } from "react";
 import Loading from "../ui/Loading";
 
-const CheckerFeed = () => {
-  const [checkers, setCheckers] = useState([]);
+const CheckerFeed = ({ filteredCheckers, setCheckers }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [wantToReRender, setWantToReRender] = useState(false);
@@ -33,13 +32,13 @@ const CheckerFeed = () => {
     return (
       <div className="text-center text-red-500font-boldtext-2xl">{error}</div>
     );
-  if (checkers.length === 0)
+  if (filteredCheckers.length === 0)
     return <div className="text-center text-2xl">No checkers found</div>;
 
   return (
     <div className="flex flex-grow">
       <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 p-4 flex-1">
-        {checkers.map((checker, id) => (
+        {filteredCheckers.map((checker, id) => (
           <CheckerProfile
             key={id}
             checker={checker}

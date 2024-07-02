@@ -5,6 +5,8 @@ import axios from "../../api/axios";
 import { useState, useEffect } from "react";
 import ImageUploadForPerson from "../ui/ImageUploadForPerson";
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { DataContext } from "../../context/DataContext";
 
 const AddChecker = () => {
   const phoneRegex = /^\d{10}$/;
@@ -18,6 +20,9 @@ const AddChecker = () => {
     telephone: "",
     companyName: "",
   });
+
+  const { setBusView } = useContext(DataContext);
+  setBusView(false);
 
   const [confirmPassword, setConfirmPassword] = useState("");
   const [telephoneError, setTelephoneError] = useState(false);

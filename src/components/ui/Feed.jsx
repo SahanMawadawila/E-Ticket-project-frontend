@@ -12,7 +12,7 @@ const Feed = ({ buses, noContent, input, date }) => {
         style={{ listStyleType: "none" }}
       >
         {noContent ? (
-          <h1>No Buses Found</h1>
+          <div className="text-2xl">No busses found</div>
         ) : (
           buses.map((bus) => (
             <Card

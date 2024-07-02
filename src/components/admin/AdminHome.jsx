@@ -17,6 +17,8 @@ const AdminHome = () => {
   const [search, setSearch] = useState("");
   const [filteredBuses, setFilteredBuses] = useState([]);
   const { busView } = useContext(DataContext);
+  const [checkers, setCheckers] = useState([]);
+  const [filteredCheckers, setFilteredCheckers] = useState([]);
 
   useEffect(() => {
     const fetchBuses = async () => {
@@ -34,21 +36,32 @@ const AdminHome = () => {
   }, []);
 
   useEffect(() => {
-    if (buses.length === 0) {
-      setNoContent(true);
-      return;
+    if (busView) {
+      if (buses.length === 0) {
+        setNoContent(true);
+        return;
+      }
+      setNoContent(false);
+      setFilteredBuses(
+        buses.filter(
+          (bus) =>
+            bus.numberPlate.toLowerCase().includes(search.toLowerCase()) ||
+            bus.routeNumber.includes(search) ||
+            bus.busFrom.city.toLowerCase().includes(search.toLowerCase()) ||
+            bus.busTo.city.toLowerCase().includes(search.toLowerCase())
+        )
+      );
+    } else if (checkers.length > 0 && !busView) {
+      setFilteredCheckers(
+        checkers.filter(
+          (checker) =>
+            checker.name.toLowerCase().includes(search.toLowerCase()) ||
+            checker.email.toLowerCase().includes(search.toLowerCase()) ||
+            checker.companyName.toLowerCase().includes(search.toLowerCase())
+        )
+      );
     }
-    setNoContent(false);
-    setFilteredBuses(
-      buses.filter(
-        (bus) =>
-          bus.numberPlate.toLowerCase().includes(search.toLowerCase()) ||
-          bus.routeNumber.includes(search) ||
-          bus.busFrom.city.toLowerCase().includes(search.toLowerCase()) ||
-          bus.busTo.city.toLowerCase().includes(search.toLowerCase())
-      )
-    );
-  }, [search, buses]);
+  }, [search, buses, busView, checkers]);
 
   if (loading) return <Loading />;
   return (
@@ -60,7 +73,10 @@ const AdminHome = () => {
         {busView ? (
           <Feed buses={filteredBuses} noContent={noContent} />
         ) : (
-          <CheckerFeed />
+          <CheckerFeed
+            filteredCheckers={filteredCheckers}
+            setCheckers={setCheckers}
+          />
         )}
       </div>
     </>

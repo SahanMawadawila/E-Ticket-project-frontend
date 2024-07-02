@@ -16,7 +16,7 @@ function Sidebar({ search, setSearch }) {
   const [wantToLogout, setWantToLogout] = useState(false);
   const handleClose = () => setShow(false);
   const { setAuth } = useContext(AuthContext);
-  const { setBusView } = useContext(DataContext);
+  const { setBusView, busView } = useContext(DataContext);
   const navigate = useNavigate();
   useEffect(() => {
     if (wantToLogout) {
@@ -30,7 +30,7 @@ function Sidebar({ search, setSearch }) {
       <div className="flex md:flex-col justify-items-start gap-2 pt-2 pb-6 ">
         <input
           type="search"
-          placeholder="Search a bus"
+          placeholder={`Search a ${busView ? "bus" : "checker"}`}
           className="border-2 border-gray-300 rounded-md p-2 m-2 
           hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-sky-600 focus
           "
