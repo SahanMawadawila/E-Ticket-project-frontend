@@ -12,6 +12,7 @@ import { DataProvider } from "./context/DataContext";
 import CustomerBus from "./components/Home/CustomerBus";
 import BookingForm from "./components/Home/BookingForm";
 import AddChecker from "./components/admin/AddChecker";
+import VerifyBookings from "./components/checker/VerifyBookings";
 
 function App() {
   return (
@@ -38,6 +39,7 @@ function App() {
 
             <Route path="/checker" element={<RequireCheckerAuth />}>
               <Route index element={<CheckerHome />} />
+              <Route path=":id" element={<VerifyBookings />} />
             </Route>
           </Routes>
         </AuthProvider>
