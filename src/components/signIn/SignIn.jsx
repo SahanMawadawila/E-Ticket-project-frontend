@@ -47,7 +47,11 @@ const SignIn = ({ handleCloseModal }) => {
       setAuth(
         adminSelected
           ? { admin: true, checker: false }
-          : { admin: false, checker: true }
+          : {
+              admin: false,
+              checker: true,
+              checkerCompany: response.data.company,
+            }
       );
       navigate(adminSelected ? "/admin" : "/checker");
       handleCloseModal();

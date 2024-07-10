@@ -41,34 +41,45 @@ const SearchBar = ({
     setNoContent(false);
     setSearching(true);
     setSearchResults([]);
+
+    const previousDaySearch = {
+      from: input.from,
+      to: input.to,
+      date: dayjs(date).subtract(1, "day").format(),
+      isToday: false,
+    };
     const search = {
       from: input.from,
       to: input.to,
-      date: date,
+      date: dayjs(date).format(),
+      isToday: true,
     };
+
     try {
-      const response = await axios.post("/search", search);
-      if (response.status === 204) {
-        setSearching(false);
+      const [previousResponse, response] = await Promise.all([
+        axios.post("/search", previousDaySearch),
+        axios.post("/search", search),
+      ]);
+
+      if (response.status === 204 && previousResponse.status === 204) {
         setNoContent(true);
-        return;
+      } else {
+        setSearchResults([...previousResponse.data, ...response.data]);
       }
-      setSearchResults(response.data);
-
-      setSearching(false);
     } catch (err) {
-      if (err.response.status === 400) {
-        if (err.response.data.message) {
-          setError(err.response.data.message);
-        } else {
-          setError("Something went wrong");
-        }
+      if (
+        err.response &&
+        err.response.status === 400 &&
+        err.response.data.message
+      ) {
+        setError(err.response.data.message);
+      } else {
+        setError("Something went wrong");
       }
-
-      setError("Something went wrong");
       setNoContent(true);
-      setSearching(false);
       console.log(err);
+    } finally {
+      setSearching(false);
     }
   };
 

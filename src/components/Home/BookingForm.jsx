@@ -55,6 +55,7 @@ const BookingForm = () => {
       busTo: responseData.busTo.city,
       routeNumber: responseData.routeNumber,
       price: responseData.thisBusPrice * selectedSeats.length,
+      busDepartureTime: responseData.busFrom.departureTime,
     };
 
     try {

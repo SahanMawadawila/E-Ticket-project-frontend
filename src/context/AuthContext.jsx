@@ -6,6 +6,7 @@ export const AuthProvider = ({ children }) => {
   const [auth, setAuth] = useState({
     admin: false,
     checker: false,
+    checkerCompany: "",
   });
   return (
     <AuthContext.Provider value={{ auth, setAuth }}>
