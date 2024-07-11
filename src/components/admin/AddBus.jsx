@@ -7,6 +7,7 @@ import RouteTable from "./RouteTable";
 import WeekdaySelector from "../ui/weekDaySelector";
 import { useContext } from "react";
 import { DataContext } from "../../context/DataContext";
+import { Autocomplete, TextField } from "@mui/material";
 
 const AddBus = () => {
   const REGEX_NUMBER = /^[\d/]+$/;
@@ -15,7 +16,7 @@ const AddBus = () => {
   const REGISTER_URL = "/bus";
   const REGEX_NUMBERPLATE = /^[A-Z]{2,3}-\d{4}$/;
 
-  const { setBusView } = useContext(DataContext);
+  const { setBusView, cities } = useContext(DataContext);
   setBusView(true);
 
   const [routeNumberError, setRouteNumberError] = useState(true);
@@ -469,7 +470,7 @@ const AddBus = () => {
                 <p className="text-red-500 ml-2">City is invalid</p>
               )}
               <label className="ml-2 p-1">City:</label>
-              <input
+              {/* <input
                 type="text"
                 placeholder="City"
                 className="border-2 border-gray-300 rounded-md p-2 flex-grow ml-2"
@@ -482,6 +483,34 @@ const AddBus = () => {
                 value={oneRowOfTable.city}
                 onFocus={() => setCityFocus(true)}
                 onBlur={() => setCityFocus(false)}
+              /> */}
+              <Autocomplete
+                freeSolo
+                sx={{ minWidth: 200, flexGrow: 1 }}
+                options={cities}
+                onChange={(event, newValue) => {
+                  // Handle selection from dropdown
+                  setOneRowOfTable({
+                    ...oneRowOfTable,
+                    city: newValue ? newValue.toLowerCase() : "",
+                  });
+                }}
+                onInputChange={(event, newInputValue) => {
+                  setOneRowOfTable({
+                    ...oneRowOfTable,
+                    city: newInputValue ? newInputValue.toLowerCase() : "",
+                  });
+                }}
+                value={oneRowOfTable.city}
+                renderInput={(params) => (
+                  <TextField
+                    sx={{
+                      minWidth: 200,
+                      flexGrow: 1,
+                    }}
+                    {...params}
+                  />
+                )}
               />
             </div>
             <div className="flex flex-col  w-full md:w-auto mb-2 md:mb-0">
