@@ -76,6 +76,7 @@ const Card = ({
                     auth.admin ? busFrom.departureTime : searchedDepartureTime,
                     auth.admin ? busTo.arrivalTime : searchedArrivalTime
                   )}
+                  &nbsp;hrs
                 </p>
               </div>
             </div>

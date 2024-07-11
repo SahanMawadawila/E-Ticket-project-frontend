@@ -13,6 +13,7 @@ const CheckerHome = () => {
   const [buses, setBuses] = useState([]);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [searchResults, setSearchResults] = useState([]);
 
   useEffect(() => {
     const fetchCheckerCompanyBuses = async () => {
@@ -31,6 +32,17 @@ const CheckerHome = () => {
     fetchCheckerCompanyBuses();
   }, [auth.checkerCompany]);
 
+  useEffect(() => {
+    const searchResults = buses.filter(
+      (bus) =>
+        bus.numberPlate.toLowerCase().includes(search.toLowerCase()) ||
+        bus.routeNumber.includes(search) ||
+        bus.busFrom.city.toLowerCase().includes(search.toLowerCase()) ||
+        bus.busTo.city.toLowerCase().includes(search.toLowerCase())
+    );
+    setSearchResults(searchResults);
+  }, [search, buses]);
+
   if (loading) {
     return <Loading />;
   }
@@ -44,7 +56,7 @@ const CheckerHome = () => {
       <div>
         <CheckerSidebar search={search} setSearch={setSearch} />
       </div>
-      <BusFeedForChecker buses={buses} />
+      <BusFeedForChecker buses={searchResults} />
     </div>
   );
 };

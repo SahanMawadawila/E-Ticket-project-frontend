@@ -8,8 +8,9 @@ const CheckerBus = ({ bus }) => {
   return (
     <Zoom in={true}>
       <div>
-        <div className="bg-blue-500 text-white text-center py-2 rounded-t-lg mb-2">
-          <h2 className="text-xl font-bold">{bus.routeNumber}</h2>
+        <div className="bg-blue-500 text-white flex flex-row py-2 rounded-t-lg mb-2 justify-between items-center">
+          <h2 className="text-xl font-bold pl-3">{bus.routeNumber}</h2>
+          <p className="font-bold pr-3">{bus.numberPlate}</p>
         </div>
         <div className="flex justify-between">
           <div className="flex flex-col justify-center">

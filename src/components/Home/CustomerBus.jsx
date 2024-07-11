@@ -84,6 +84,7 @@ const CustomerBus = () => {
                       responseData.searchedDepartureTime,
                       responseData.searchedArrivalTime
                     )}
+                    &nbsp;hrs
                   </p>
                 </div>
               </div>
