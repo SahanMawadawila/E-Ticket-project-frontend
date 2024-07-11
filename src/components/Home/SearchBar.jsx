@@ -60,6 +60,8 @@ const SearchBar = ({
         axios.post("/search", previousDaySearch),
         axios.post("/search", search),
       ]);
+      console.log(previousResponse);
+      console.log(response);
 
       if (response.status === 204 && previousResponse.status === 204) {
         setNoContent(true);
