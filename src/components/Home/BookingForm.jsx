@@ -17,6 +17,9 @@ const BookingForm = () => {
   const responseData = searchResults.find((result) => result._id === id);
   const navigate = useNavigate();
 
+  // console.log(responseData.thisBusPrice);
+  // console.log(selectedSeats.split(",").length);
+
   const [formData, setFormData] = useState({
     id: "",
     email: "",
@@ -54,7 +57,7 @@ const BookingForm = () => {
       busFrom: responseData.busFrom.city,
       busTo: responseData.busTo.city,
       routeNumber: responseData.routeNumber,
-      price: responseData.thisBusPrice * selectedSeats.length,
+      price: responseData.thisBusPrice * selectedSeats.split(",").length,
       busDepartureTime: responseData.busFrom.departureTime,
     };
 
@@ -274,7 +277,9 @@ const BookingForm = () => {
             />
             <p className="font-bold text-xl " style={{ color: "#063970" }}>
               &nbsp; Rs.{" "}
-              {formatNumber(responseData.thisBusPrice * selectedSeats.length)}
+              {formatNumber(
+                responseData.thisBusPrice * selectedSeats.split(",").length
+              )}
             </p>
           </div>
           <button
