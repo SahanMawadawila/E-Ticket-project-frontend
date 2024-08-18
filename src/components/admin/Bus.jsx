@@ -10,6 +10,7 @@ import ConfirmModal from "../ui/ConfirmModal";
 import { useNavigate } from "react-router-dom";
 import SeatArrangement from "./SeatArrangement";
 import getDays from "../../utils/getDays";
+import { toast } from "react-toastify";
 
 const Bus = () => {
   const { id } = useParams();
@@ -52,8 +53,9 @@ const Bus = () => {
       const deleteBus = async () => {
         try {
           const response = await axios.delete(`/bus/${id}`);
-          alert("Bus has been successfully deleted");
+          toast.success("Bus has been deleted successfully");
         } catch (err) {
+          toast.error("Something went wrong");
           console.log(err);
         }
       };

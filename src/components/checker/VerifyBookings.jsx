@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import axios from "../../api/axios";
 import Loading from "../ui/Loading";
 import BookingsTable from "./BookingsTable";
+import { toast } from "react-toastify";
 
 const VerifyBookings = () => {
   const { id } = useParams();
@@ -47,9 +48,9 @@ const VerifyBookings = () => {
             bookingId: scanResult,
           });
           setWantToFetch(!wantToFetch);
-          alert("Booking verified successfully");
+          toast.success("Booking verified successfully");
         } catch (err) {
-          alert(err.response.data.message);
+          toast.error("Something went wrong");
         }
       };
       verifyBooking();

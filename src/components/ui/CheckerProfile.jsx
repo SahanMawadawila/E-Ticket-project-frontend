@@ -5,6 +5,7 @@ import { baseURL } from "../../api/axios";
 import axios from "../../api/axios";
 import ConfirmModal from "./ConfirmModal";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 function CheckerProfile({ checker, setWantToReRender, wantToReRender }) {
   const [show, setShow] = useState(false);
@@ -16,9 +17,9 @@ function CheckerProfile({ checker, setWantToReRender, wantToReRender }) {
     handleClose();
     try {
       await axios.delete(`/checkers/${checker._id}`);
-      alert("Checker has been successfully deleted");
+      toast.success("Checker has been deleted successfully");
     } catch (err) {
-      alert("Something went wrong");
+      toast.error("Something went wrong");
     } finally {
       setWantToReRender(!wantToReRender);
     }

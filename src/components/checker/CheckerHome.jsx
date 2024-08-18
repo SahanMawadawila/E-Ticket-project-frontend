@@ -22,7 +22,9 @@ const CheckerHome = () => {
         const response = await axios.post("/authBuses", {
           company: auth.checkerCompany,
         });
-        setBuses(response.data);
+        if (response.data.length !== 0) {
+          setBuses(response.data);
+        }
       } catch (err) {
         setError(err.response.data);
       } finally {

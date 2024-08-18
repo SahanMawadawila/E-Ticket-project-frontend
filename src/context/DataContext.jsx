@@ -1,7 +1,19 @@
 import { createContext, useState, useEffect } from "react";
 import axios from "../api/axios";
 import dayjs from "dayjs";
-export const DataContext = createContext();
+export const DataContext = createContext({
+  cities: [],
+  searchResults: [],
+  setDate: () => {},
+  input: {
+    from: "",
+    to: "",
+  },
+  setInput: () => {},
+  date: dayjs(),
+  busView: true,
+  setBusView: () => {},
+});
 
 export const DataProvider = ({ children }) => {
   const [cities, setCities] = useState([]);

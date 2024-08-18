@@ -13,6 +13,8 @@ import CustomerBus from "./components/Home/CustomerBus";
 import BookingForm from "./components/Home/BookingForm";
 import AddChecker from "./components/admin/AddChecker";
 import VerifyBookings from "./components/checker/VerifyBookings";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
@@ -44,6 +46,7 @@ function App() {
           </Routes>
         </AuthProvider>
       </DataProvider>
+      <ToastContainer position="top-center" />
     </>
   );
 }

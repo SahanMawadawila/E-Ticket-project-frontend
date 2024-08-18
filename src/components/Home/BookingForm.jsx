@@ -8,6 +8,7 @@ import { useState, useEffect } from "react";
 import axios from "../../api/axios";
 import formatNumber from "../../utils/formatNumber";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const BookingForm = () => {
   const REGEX_TEL = /^\d{10}$/; // Matches exactly 10 digits
@@ -63,10 +64,10 @@ const BookingForm = () => {
 
     try {
       const response = await axios.post("/booking", booking);
-      alert("Booking has been successfully made");
+      toast.success("Booking successful");
       navigate("/");
     } catch (err) {
-      console.log(err);
+      toast.error("Something went wrong");
     }
   };
 

@@ -8,6 +8,7 @@ import WeekdaySelector from "../ui/weekDaySelector";
 import { useContext } from "react";
 import { DataContext } from "../../context/DataContext";
 import { Autocomplete, TextField } from "@mui/material";
+import { toast } from "react-toastify";
 
 const AddBus = () => {
   const REGEX_NUMBER = /^[\d/]+$/;
@@ -147,7 +148,7 @@ const AddBus = () => {
       });
       setImages([]);
       navigate("/admin");
-      alert("Bus Added Successfully");
+      toast.success("Bus Added Successfully");
     } catch (err) {
       if (!err?.response) {
         setErrMsg("No Server Response");
@@ -487,7 +488,9 @@ const AddBus = () => {
               <Autocomplete
                 freeSolo
                 sx={{ minWidth: 200, flexGrow: 1 }}
-                options={cities}
+                options={
+                  cities.length > 0 ? cities : ["colombo", "kandy", "galle"]
+                }
                 onChange={(event, newValue) => {
                   // Handle selection from dropdown
                   setOneRowOfTable({
