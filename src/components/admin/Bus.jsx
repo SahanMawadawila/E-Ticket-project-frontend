@@ -11,12 +11,14 @@ import { useNavigate } from "react-router-dom";
 import SeatArrangement from "./SeatArrangement";
 import getDays from "../../utils/getDays";
 import { toast } from "react-toastify";
+import { useSWRConfig } from "swr";
 
 const Bus = () => {
   const { id } = useParams();
   const [loading, setLoading] = useState(true);
   const [responseData, setResponseData] = useState({});
   const [wantToDeleteTheBus, setWantToDeleteTheBus] = useState(false);
+  const { mutate } = useSWRConfig();
   const slideStyle = "w-96 h-96";
   const imageStyle =
     "object-cover h-full w-full object-center rounded-md shadow-2xl";
@@ -53,6 +55,7 @@ const Bus = () => {
       const deleteBus = async () => {
         try {
           const response = await axios.delete(`/bus/${id}`);
+          mutate("/cities");
           toast.success("Bus has been deleted successfully");
         } catch (err) {
           toast.error("Something went wrong");

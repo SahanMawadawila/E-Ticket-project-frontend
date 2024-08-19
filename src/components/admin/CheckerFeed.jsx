@@ -1,31 +1,22 @@
 import React from "react";
 import CheckerProfile from "../ui/CheckerProfile";
-import { useState } from "react";
 import axios from "../../api/axios";
-import { useEffect } from "react";
 import Loading from "../ui/Loading";
+import useSWR from "swr";
 
 const CheckerFeed = ({ filteredCheckers, setCheckers }) => {
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-  const [wantToReRender, setWantToReRender] = useState(false);
-
-  useEffect(() => {
-    setLoading(true);
-    const fetchCheckers = async () => {
-      try {
-        const response = await axios.get("/checkers");
-
-        setCheckers(response.data);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchCheckers();
-  }, [wantToReRender]);
+  const { error, isLoading: loading } = useSWR(
+    "/checkers",
+    async () => {
+      const response = await axios.get("/checkers");
+      return response.data;
+    },
+    {
+      onSuccess: (data) => {
+        setCheckers(data);
+      },
+    }
+  );
 
   if (loading) return <Loading />;
   if (error)
@@ -39,12 +30,7 @@ const CheckerFeed = ({ filteredCheckers, setCheckers }) => {
     <div className="flex flex-grow">
       <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 p-4 flex-1">
         {filteredCheckers.map((checker, id) => (
-          <CheckerProfile
-            key={id}
-            checker={checker}
-            wantToReRender={wantToReRender}
-            setWantToReRender={setWantToReRender}
-          />
+          <CheckerProfile key={id} checker={checker} />
         ))}
       </div>
     </div>

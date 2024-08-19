@@ -9,6 +9,7 @@ import { useContext } from "react";
 import { DataContext } from "../../context/DataContext";
 import { Autocomplete, TextField } from "@mui/material";
 import { toast } from "react-toastify";
+import { useSWRConfig } from "swr";
 
 const AddBus = () => {
   const REGEX_NUMBER = /^[\d/]+$/;
@@ -16,6 +17,7 @@ const AddBus = () => {
   const REGEX_CITY = /^[A-Za-z ]+$/;
   const REGISTER_URL = "/bus";
   const REGEX_NUMBERPLATE = /^[A-Z]{2,3}-\d{4}$/;
+  const { mutate } = useSWRConfig();
 
   const { setBusView, cities } = useContext(DataContext);
   setBusView(true);
@@ -147,6 +149,7 @@ const AddBus = () => {
         minHalts: 80,
       });
       setImages([]);
+      mutate("/cities");
       navigate("/admin");
       toast.success("Bus Added Successfully");
     } catch (err) {

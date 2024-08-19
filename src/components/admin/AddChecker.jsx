@@ -7,6 +7,8 @@ import ImageUploadForPerson from "../ui/ImageUploadForPerson";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { DataContext } from "../../context/DataContext";
+import { useSWRConfig } from "swr";
+import { toast } from "react-toastify";
 
 const AddChecker = () => {
   const phoneRegex = /^\d{10}$/;
@@ -29,6 +31,7 @@ const AddChecker = () => {
   const [telephoneFocus, setTelephoneFocus] = useState(false);
   const [confirmPasswordError, setConfirmPasswordError] = useState(false);
   const [logInError, setLogInError] = useState("");
+  const { mutate } = useSWRConfig();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -72,7 +75,9 @@ const AddChecker = () => {
       formData.append("companyName", input.companyName);
       formData.append("image", imageFile);
       await axios.post("/checkers", formData);
+      mutate("/checkers");
       navigate("/admin");
+      toast.success("Checker added successfully");
     } catch (err) {
       if (err.response.status === 400) {
         setLogInError("Missing fields");
