@@ -13,6 +13,7 @@ import CustomerBus from "./components/Home/CustomerBus";
 import BookingForm from "./components/Home/BookingForm";
 import AddChecker from "./components/admin/AddChecker";
 import VerifyBookings from "./components/checker/VerifyBookings";
+import About from "./components/Home/payment_success";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
                 path="/:id/booking/:selectedSeats"
                 element={<BookingForm />}
               />
+              <Route path='/payment-success' element={<About></About>}/>
             </Route>
 
             <Route path="/admin" element={<RequireAdminAuth />}>

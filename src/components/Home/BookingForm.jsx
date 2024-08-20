@@ -8,6 +8,7 @@ import { useState, useEffect } from "react";
 import axios from "../../api/axios";
 import formatNumber from "../../utils/formatNumber";
 import { useNavigate } from "react-router-dom";
+import {loadStripe} from '@stripe/stripe-js';
 
 const BookingForm = () => {
   const REGEX_TEL = /^\d{10}$/; // Matches exactly 10 digits
@@ -16,9 +17,6 @@ const BookingForm = () => {
   const { searchResults, input, date } = useContext(DataContext);
   const responseData = searchResults.find((result) => result._id === id);
   const navigate = useNavigate();
-
-  // console.log(responseData.thisBusPrice);
-  // console.log(selectedSeats.split(",").length);
 
   const [formData, setFormData] = useState({
     id: "",
@@ -33,42 +31,47 @@ const BookingForm = () => {
 
   const [submitError, setSubmitError] = useState(true);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    const booking = {
-      ...formData,
-      busId: id,
-      seats: selectedSeats,
-      date: date.format("YYYY-MM-DD"),
-      ...input,
-      departureTime: responseData.searchedDepartureTime,
-      arrivalTime: responseData.searchedArrivalTime,
-      arrivalDate:
-        responseData.searchedArrivalTime < responseData.searchedDepartureTime
-          ? dayjs(date).add(1, "day").format("YYYY-MM-DD")
-          : date.format("YYYY-MM-DD"),
-      numberPlate: responseData.numberPlate,
-      busName: responseData.busName,
-      duration: subtractTime(
-        responseData.searchedDepartureTime,
-        responseData.searchedArrivalTime
-      ),
-      busFrom: responseData.busFrom.city,
-      busTo: responseData.busTo.city,
-      routeNumber: responseData.routeNumber,
-      price: responseData.thisBusPrice * selectedSeats.split(",").length,
-      busDepartureTime: responseData.busFrom.departureTime,
-    };
-
-    try {
-      const response = await axios.post("/booking", booking);
-      alert("Booking has been successfully made");
-      navigate("/");
-    } catch (err) {
-      console.log(err);
-    }
+//new code start
+const makePayment = async (e) => {
+  e.preventDefault();
+  const stripe = await loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
+  const booking = {
+    ...formData,
+    busId: id,
+    seats: selectedSeats,
+    date: date.format("YYYY-MM-DD"),
+    ...input,
+    departureTime: responseData.searchedDepartureTime,
+    arrivalTime: responseData.searchedArrivalTime,
+    arrivalDate:
+      responseData.searchedArrivalTime < responseData.searchedDepartureTime
+        ? dayjs(date).add(1, "day").format("YYYY-MM-DD")
+        : date.format("YYYY-MM-DD"),
+    numberPlate: responseData.numberPlate,
+    busName: responseData.busName,
+    duration: subtractTime(
+      responseData.searchedDepartureTime,
+      responseData.searchedArrivalTime
+    ),
+    busFrom: responseData.busFrom.city,
+    busTo: responseData.busTo.city,
+    routeNumber: responseData.routeNumber,
+    price: responseData.thisBusPrice * selectedSeats.split(",").length,
+    busDepartureTime: responseData.busFrom.departureTime,
   };
+  try {
+    const response = await axios.post("/booking", booking);
+    const session = await response.data;
+    const result = stripe.redirectToCheckout({
+      sessionId:session.id
+    });
+    if (result.error){
+      console.log(result.error);
+    }
+  } catch (err) {
+    console.log(err);
+  }
+};
 
   useEffect(() => {
     if (REGEX_ID.test(formData.id)) {
@@ -277,15 +280,13 @@ const BookingForm = () => {
             />
             <p className="font-bold text-xl " style={{ color: "#063970" }}>
               &nbsp; Rs.{" "}
-              {formatNumber(
-                responseData.thisBusPrice * selectedSeats.split(",").length
-              )}
+              {formatNumber(responseData.thisBusPrice * selectedSeats.split(",").length)}
             </p>
           </div>
           <button
             className="bg-orange-500 text-white p-2 rounded-md mt-4"
             disabled={submitError}
-            onClick={handleSubmit}
+            onClick={/*handleSubmit*/makePayment}
           >
             Book Now
           </button>
