@@ -53,7 +53,7 @@ export default function RouteTable({ table }) {
                   style={{
                     minWidth: column.minWidth,
                     fontWeight: "bold",
-                    backgroundColor: "#172554",
+                    backgroundColor: "#1e3a8a",
                     color: "white",
                   }}
                 >

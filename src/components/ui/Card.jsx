@@ -31,7 +31,7 @@ const Card = ({
         className="no-underline"
       >
         <li className="w-full mx-auto bg-white shadow-lg rounded-lg my-1">
-          <div className="bg-blue-500 text-white text-center py-2 rounded-t-lg mb-2">
+          <div className="bg-blue-900 text-white text-center py-2 rounded-t-lg mb-2">
             <h2 className="text-xl font-bold">Route # {routeNumber}</h2>
           </div>
           <div className="flex flex-wrap justify-between md:ml-4 mr-4">
@@ -149,7 +149,7 @@ const Card = ({
             </div>
           )}
 
-          <div className="mt-2 bg-orange-500 py-2 rounded-b-lg"></div>
+          <div className="mt-2 bg-orange-900 py-2 rounded-b-lg"></div>
         </li>
       </Link>
     </Zoom>

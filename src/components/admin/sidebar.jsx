@@ -38,7 +38,7 @@ function Sidebar({ search, setSearch }) {
           value={search}
         />
         <button
-          className="flex items-center space-x-4 bg-sky-600 hover:bg-gradient-to-r from-sky-600 to-cyan-400 px-3 py-3 hover: text-white"
+          className="flex items-center space-x-4 bg-blue-800 hover:bg-gradient-to-r from-blue-800 to-blue-900 px-3 py-3 hover: text-white"
           onClick={() => navigate("/admin/add-bus")}
         >
           <AddIcon />
@@ -46,28 +46,28 @@ function Sidebar({ search, setSearch }) {
         </button>
 
         <button
-          className="flex items-center space-x-4  bg-sky-600 hover:bg-gradient-to-r from-sky-600 to-cyan-400 px-3 py-3 hover: text-white"
+          className="flex items-center space-x-4 bg-blue-800 hover:bg-gradient-to-r from-blue-800 to-blue-900 px-3 py-3 hover: text-white"
           onClick={() => navigate("/admin/add-checker")}
         >
           <PersonAddIcon />
           <p className="font-bold hidden md:inline-block">Add Checker</p>
         </button>
         <button
-          className="flex items-center space-x-4  bg-sky-600 hover:bg-gradient-to-r from-sky-600 to-cyan-400 px-3 py-3 hover: text-white"
+          className="flex items-center space-x-4 bg-blue-800 hover:bg-gradient-to-r from-blue-800 to-blue-900 px-3 py-3 hover: text-white"
           onClick={() => setBusView(true)}
         >
           <AirportShuttleIcon />
           <p className="font-bold hidden md:inline-block">View Buses</p>
         </button>
         <button
-          className="flex items-center space-x-4  bg-sky-600 hover:bg-gradient-to-r from-sky-600 to-cyan-400 px-3 py-3 hover: text-white"
+          className="flex items-center space-x-4 bg-blue-800 hover:bg-gradient-to-r from-blue-800 to-blue-900 px-3 py-3 hover: text-white"
           onClick={() => setBusView(false)}
         >
           <GroupsIcon />
           <p className="font-bold hidden md:inline-block">View Checkers</p>
         </button>
         <button
-          className="flex items-center space-x-4  bg-sky-600  hover:bg-gradient-to-r from-sky-600 to-cyan-400 px-3 py-3 hover: text-white"
+          className="flex items-center space-x-4 bg-blue-800 hover:bg-gradient-to-r from-blue-800 to-blue-900 px-3 py-3 hover: text-white"
           onClick={() => setShow(true)}
         >
           <LogoutIcon />

@@ -86,7 +86,7 @@ const BookingDetails = () => {
         </LocalizationProvider>
 
         <button
-          className="bg-blue-900 hover:bg-blue-950 text-white px-3 py-1 rounded-md ml-3"
+          className="bg-blue-900 hover:bg-blue-950 text-white font-bold py-2 px-4 rounded ml-3"
           onClick={handleShow}
         >
           Freeze

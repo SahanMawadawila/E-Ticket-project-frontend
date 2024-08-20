@@ -31,10 +31,11 @@ export default function Footer() {
               Contact Us
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              123 Main Street, Anytown, USA
+              Faculty of Engineering, <br />
+              University of Sri Jayewardenepura, Nugegoda
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              Email: info@example.com
+              Email: sjpgrouptravel@gmail.com
             </Typography>
             <Typography variant="body2" color="text.secondary">
               Phone: +1 234 567 8901

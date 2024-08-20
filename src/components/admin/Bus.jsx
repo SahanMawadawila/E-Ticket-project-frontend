@@ -71,7 +71,7 @@ const Bus = () => {
   if (loading) return <Loading />;
   return (
     <div className=" mx-auto p-6 shadow-2xl max-w-[100vw] ">
-      <div className="bg-blue-950 text-white text-center py-2 rounded-t-lg mb-2">
+      <div className="bg-blue-900 text-white text-center py-2 rounded-t-lg mb-2">
         <h2 className="text-xl font-bold">
           Route # {responseData.routeNumber}
         </h2>
@@ -156,7 +156,7 @@ const Bus = () => {
         </div>
       </div>
       <hr />
-      <div className="bg-blue-950 text-white text-center py-1  mb-2">
+      <div className="bg-blue-900 text-white text-center py-1  mb-2">
         <h2 className="text-xl font-bold">Seat Arrangement:</h2>
       </div>
       <SeatArrangement seats={responseData.seats} />

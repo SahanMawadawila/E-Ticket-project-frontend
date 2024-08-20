@@ -7,10 +7,10 @@ const SeatArrangement = ({ seats }) => {
   let seats_1 = seats.slice(0, -9);
   const backgroundColorSelector = (isBookable, availability) => {
     if (!isBookable) {
-      return "gray";
+      return "#1f2937";
     }
     if (availability) {
-      return "green";
+      return "#22c55e";
     }
     return "red";
   };

@@ -103,7 +103,7 @@ const BookingForm = () => {
   return (
     <div className=" md:max-w-[90vw] mx-auto p-6 shadow-2xl max-w-[100vw]">
       <form>
-        <p className="text-center bg-orange-500 text-white font-bold rounded-md ">
+        <p className="text-center bg-orange-900 text-white font-bold rounded-md ">
           Booking Form
         </p>
         <p className="text-gray-600 font-semibold" style={{ width: "150px" }}>
@@ -289,7 +289,7 @@ const BookingForm = () => {
             </p>
           </div>
           <button
-            className="bg-orange-500 text-white p-2 rounded-md mt-4"
+            className="bg-orange-800 text-white p-2 rounded-md mt-4 hover:bg-orange-900"
             disabled={submitError}
             onClick={/*handleSubmit*/ makePayment}
           >

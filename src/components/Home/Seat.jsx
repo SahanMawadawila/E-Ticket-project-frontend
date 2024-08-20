@@ -12,7 +12,7 @@ const Seat = ({
 }) => {
   const backgroundColorSelector = (isBookable, availabilityBoolean) => {
     if (!isBookable) {
-      return "bg-gray-500"; // not bookable
+      return "bg-gray-800"; // not bookable
     } else if (availabilityBoolean) {
       return "bg-green-500"; //bookable and available
     }

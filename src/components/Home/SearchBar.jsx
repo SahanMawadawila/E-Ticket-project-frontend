@@ -92,7 +92,7 @@ const SearchBar = ({
   return (
     <div className="flex-col  shadow-2xl md:max-w-[75vw] lg:max-w-[50vw] mx-w-[100vw] mx-auto p-6">
       {error && <p className="text-red-500 text-center">{error}</p>}
-      <p className="text-center  bg-cyan-600 text-white font-bold rounded-md ">
+      <p className="text-center  bg-blue-900 text-white font-bold rounded-md ">
         Online Seat Reservation
       </p>
       <div className="flex flex-col gap-3">
@@ -143,13 +143,13 @@ const SearchBar = ({
           </LocalizationProvider>
         </div>
         <div className="flex justify-end">
-          <Button
-            variant="contained"
-            disabled={searchDisabled}
+          <button
+            className="bg-blue-700 text-white font-bold py-2 px-4 rounded hover:bg-blue-800 ml-2"
             onClick={handleSearch}
+            disabled={searchDisabled}
           >
             Search
-          </Button>
+          </button>
         </div>
       </div>
     </div>

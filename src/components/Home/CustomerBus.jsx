@@ -39,7 +39,7 @@ const CustomerBus = () => {
 
   return (
     <div className=" mx-auto p-6 shadow-2xl max-w-[100vw] ">
-      <div className="bg-blue-500 text-white text-center py-2 rounded-t-lg mb-2">
+      <div className="bg-blue-900 text-white text-center py-2 rounded-t-lg mb-2">
         <h2 className="text-xl font-bold self-center">
           {`Route # ${responseData.routeNumber} ${responseData.busFrom.city} - ${responseData.busTo.city}`}
         </h2>
@@ -154,7 +154,7 @@ const CustomerBus = () => {
         </div>
       </div>
       <hr />
-      <div className="bg-green-600 text-white text-center py-2  mb-2">
+      <div className="bg-green-500 text-white text-center py-2  mb-2">
         <h2 className="text-xl font-bold">Seats</h2>
       </div>
       <SeatArrangementForUser
@@ -172,7 +172,7 @@ const CustomerBus = () => {
             {formatNumber(responseData.thisBusPrice * selectedSeats.length)}
           </p>
           <button
-            className="bg-orange-500 text-white p-2 rounded-md hover:bg-orange-600"
+            className="bg-red-500 text-white p-2 rounded-md hover:bg-red-600"
             onClick={() =>
               navigate(`/${id}/booking/${selectedSeats.join(",")}`)
             }
