@@ -16,6 +16,7 @@ import VerifyBookings from "./components/checker/VerifyBookings";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import BookingDetails from "./components/admin/BookingDetails";
+import About from "./components/Home/payment_success";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
                 path="/:id/booking/:selectedSeats"
                 element={<BookingForm />}
               />
+              <Route path="/payment-success" element={<About></About>} />
             </Route>
 
             <Route path="/admin" element={<RequireAdminAuth />}>

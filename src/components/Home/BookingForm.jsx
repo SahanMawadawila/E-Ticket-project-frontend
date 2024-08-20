@@ -9,6 +9,7 @@ import axios from "../../api/axios";
 import formatNumber from "../../utils/formatNumber";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { loadStripe } from "@stripe/stripe-js";
 
 const BookingForm = () => {
   const REGEX_TEL = /^\d{10}$/; // Matches exactly 10 digits
@@ -17,9 +18,6 @@ const BookingForm = () => {
   const { searchResults, input, date } = useContext(DataContext);
   const responseData = searchResults.find((result) => result._id === id);
   const navigate = useNavigate();
-
-  // console.log(responseData.thisBusPrice);
-  // console.log(selectedSeats.split(",").length);
 
   const [formData, setFormData] = useState({
     id: "",
@@ -34,9 +32,12 @@ const BookingForm = () => {
 
   const [submitError, setSubmitError] = useState(true);
 
-  const handleSubmit = async (e) => {
+  //new code start
+  const makePayment = async (e) => {
     e.preventDefault();
-
+    const stripe = await loadStripe(
+      import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY
+    );
     const booking = {
       ...formData,
       busId: id,
@@ -61,13 +62,17 @@ const BookingForm = () => {
       price: responseData.thisBusPrice * selectedSeats.split(",").length,
       busDepartureTime: responseData.busFrom.departureTime,
     };
-
     try {
       const response = await axios.post("/booking", booking);
-      toast.success("Booking successful");
-      navigate("/");
+      const session = await response.data;
+      const result = stripe.redirectToCheckout({
+        sessionId: session.id,
+      });
+      if (result.error) {
+        console.log(result.error);
+      }
     } catch (err) {
-      toast.error("Something went wrong");
+      console.log(err);
     }
   };
 
@@ -286,7 +291,7 @@ const BookingForm = () => {
           <button
             className="bg-orange-500 text-white p-2 rounded-md mt-4"
             disabled={submitError}
-            onClick={handleSubmit}
+            onClick={/*handleSubmit*/ makePayment}
           >
             Book Now
           </button>
