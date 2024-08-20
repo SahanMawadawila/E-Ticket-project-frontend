@@ -15,6 +15,7 @@ import AddChecker from "./components/admin/AddChecker";
 import VerifyBookings from "./components/checker/VerifyBookings";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import BookingDetails from "./components/admin/BookingDetails";
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
               <Route path="add-bus" element={<AddBus />} />
               <Route path="add-checker" element={<AddChecker />} />
               <Route path="bus/:id" element={<Bus />} />
+              <Route path="bookings/:id" element={<BookingDetails />} />
             </Route>
 
             <Route path="/checker" element={<RequireCheckerAuth />}>

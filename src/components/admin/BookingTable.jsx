@@ -4,30 +4,26 @@ import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
-import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import Thead from "@mui/material/TableHead";
 
 const columns = [
-  { id: "city", label: "City", minWidth: 170 },
-  { id: "halts", label: "No of Halts", minWidth: 100 },
   {
-    id: "arrivalTime",
-    label: "Arrival Time",
-    minWidth: 170,
-    align: "right",
-    format: (value) => value.toLocaleString("en-US"),
+    id: "date",
+    label: "Date",
+    minWidth: 100,
+    align: "center",
   },
+
   {
-    id: "departureTime",
-    label: "Departure Time",
-    minWidth: 170,
-    align: "right",
-    format: (value) => value.toLocaleString("en-US"),
+    id: "count",
+    label: "No of Seats",
+    minWidth: 100,
+    align: "center",
   },
 ];
 
-export default function RouteTable({ table }) {
+export default function BookingsTable({ bookings }) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
@@ -64,7 +60,7 @@ export default function RouteTable({ table }) {
           </Thead>
 
           <TableBody>
-            {table
+            {bookings
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row, index) => {
                 return (
@@ -73,9 +69,7 @@ export default function RouteTable({ table }) {
                       const value = row[column.id];
                       return (
                         <TableCell key={column.id} align={column.align}>
-                          {column.format && typeof value === "number"
-                            ? column.format(value)
-                            : value}
+                          {value}
                         </TableCell>
                       );
                     })}
@@ -85,15 +79,6 @@ export default function RouteTable({ table }) {
           </TableBody>
         </Table>
       </TableContainer>
-      <TablePagination
-        rowsPerPageOptions={[10, 25, 100]}
-        component="div"
-        count={table.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-      />
     </Paper>
   );
 }

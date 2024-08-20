@@ -6,12 +6,12 @@ import { baseURL } from "../../api/axios";
 import Loading from "../ui/Loading";
 import SlideShow from "../ui/SlideShow";
 import RouteTable from "./RouteTable";
-import ConfirmModal from "../ui/ConfirmModal";
 import { useNavigate } from "react-router-dom";
 import SeatArrangement from "./SeatArrangement";
 import getDays from "../../utils/getDays";
 import { toast } from "react-toastify";
 import { useSWRConfig } from "swr";
+import ConfirmModal from "../ui/ConfirmModal";
 
 const Bus = () => {
   const { id } = useParams();
@@ -71,7 +71,7 @@ const Bus = () => {
   if (loading) return <Loading />;
   return (
     <div className=" mx-auto p-6 shadow-2xl max-w-[100vw] ">
-      <div className="bg-blue-500 text-white text-center py-2 rounded-t-lg mb-2">
+      <div className="bg-blue-950 text-white text-center py-2 rounded-t-lg mb-2">
         <h2 className="text-xl font-bold">
           Route # {responseData.routeNumber}
         </h2>
@@ -156,13 +156,22 @@ const Bus = () => {
         </div>
       </div>
       <hr />
-      <div className="bg-green-600 text-white text-center py-2  mb-2">
-        <h2 className="text-xl font-bold">Seats</h2>
+      <div className="bg-blue-950 text-white text-center py-1  mb-2">
+        <h2 className="text-xl font-bold">Seat Arrangement:</h2>
       </div>
       <SeatArrangement seats={responseData.seats} />
       <hr />
 
+      {/* <div className="bg-purple-500 text-white text-center py-1  mb-2">
+        <h2 className="text-xl font-bold">Route Details:</h2>
+      </div>
+ */}
       <RouteTable table={responseData.route} />
+
+      {/* <div className="bg-blue-950 text-white text-center py-1  mb-2">
+        <h2 className="text-xl font-bold">Booking Details:</h2>
+      </div> */}
+
       <div className="flex justify-end mt-2">
         <button
           className="bg-red-500 text-white font-bold py-2 px-4 rounded hover:bg-red-600"
@@ -170,13 +179,21 @@ const Bus = () => {
         >
           Delete
         </button>
+
+        <button
+          className="bg-blue-600 text-white font-bold py-2 px-4 rounded hover:bg-blue-700 ml-2"
+          onClick={() => navigate(`/admin/bookings/${id}`)}
+        >
+          View Bookings
+        </button>
       </div>
       <ConfirmModal
         show={show}
         handleClose={handleClose}
         handleYes={handleDeleteBus}
       >
-        Do you want to delete this bus?
+        This is a destructive action. This will cause to delete all the booking
+        along with the bus. please use freeze option before using this.
       </ConfirmModal>
     </div>
   );
