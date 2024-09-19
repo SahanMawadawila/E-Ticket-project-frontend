@@ -64,15 +64,16 @@ const BookingForm = () => {
     };
     try {
       const response = await axios.post("/booking", booking);
-      const session = await response.data;
+      const session = response.data;
+      sessionStorage.setItem("PDFurl", session.tempBookId);
       const result = stripe.redirectToCheckout({
         sessionId: session.id,
       });
       if (result.error) {
-        console.log(result.error);
+        toast.error("An error occurred while processing the payment");
       }
     } catch (err) {
-      console.log(err);
+      toast.error("An error occurred while processing the payment");
     }
   };
 

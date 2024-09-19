@@ -1,18 +1,22 @@
 import React from "react";
-import axios from "../../api/axios";
-import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+//import axios from "../../api/axios";
+//import { useNavigate } from "react-router-dom";
+//import { toast } from "react-toastify";
 
 const About = () => {
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const response = await axios.post("/completebooking");
-      toast.success("Ticket sent to email successfully");
-      navigate("/");
-    } catch (err) {
-      toast.error("Something went wrong");
+    const value = sessionStorage.getItem("PDFurl");
+    if (value) {
+      const url = `http://localhost:3200/pdf/${value}.pdf`;
+      const link = document.createElement("a");
+      link.href = url;
+      link.target = "_blank";
+      link.download = `${value}.pdf`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     }
   };
   return (
@@ -47,7 +51,7 @@ const About = () => {
             className="bg-orange-500 text-white p-2 rounded-md"
             onClick={handleSubmit}
           >
-            Send the Ticket to Email
+            Download PDF
           </button>
         </div>
       </form>
