@@ -17,7 +17,7 @@ import { toast } from "react-toastify";
 const BookingDetails = () => {
   const [date, setDate] = useState(dayjs().add(4, "day"));
   const { id } = useParams();
-  console.log(id);
+  //console.log(id);
   const fetcher = async () => {
     const [response1, response2] = await Promise.all([
       axios.get(`/booking/admin/${id}`),

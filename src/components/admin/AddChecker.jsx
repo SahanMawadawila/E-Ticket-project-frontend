@@ -40,7 +40,7 @@ const AddChecker = () => {
         const response = await axios.get("/companies");
         setCompanies(response.data);
       } catch (err) {
-        console.log(err);
+        //console.log(err);
       }
     };
     fetchCompanies();

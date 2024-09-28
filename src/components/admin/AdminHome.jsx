@@ -28,7 +28,7 @@ const AdminHome = () => {
         if (response.status === 204) setNoContent(true);
         setBuses(response.data);
       } catch (err) {
-        console.log(err);
+        //console.log(err);
       }
     };
 

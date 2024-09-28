@@ -17,6 +17,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import BookingDetails from "./components/admin/BookingDetails";
 import About from "./components/Home/payment_success";
+import Error from "./components/Home/Error";
 
 function App() {
   return (
@@ -34,7 +35,6 @@ function App() {
               />
               <Route path="/payment-success" element={<About></About>} />
             </Route>
-
             <Route path="/admin" element={<RequireAdminAuth />}>
               <Route index element={<AdminHome />} />
               <Route path="add-bus" element={<AddBus />} />
@@ -42,15 +42,20 @@ function App() {
               <Route path="bus/:id" element={<Bus />} />
               <Route path="bookings/:id" element={<BookingDetails />} />
             </Route>
-
             <Route path="/checker" element={<RequireCheckerAuth />}>
               <Route index element={<CheckerHome />} />
               <Route path=":id" element={<VerifyBookings />} />
             </Route>
+            <Route path="/error" element={<Error />} />
           </Routes>
         </AuthProvider>
       </DataProvider>
+
       <ToastContainer position="top-center" />
+      {/* <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="*" element={<Error />} />
+      </Routes> */}
     </>
   );
 }

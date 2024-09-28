@@ -18,7 +18,7 @@ const SignIn = ({ handleCloseModal }) => {
 
   const handleToggle = () => {
     setAdminSelected(!adminSelected);
-    console.log(adminSelected);
+    //console.log(adminSelected);
   };
 
   const userRef = useRef();
@@ -63,7 +63,7 @@ const SignIn = ({ handleCloseModal }) => {
       } else if (err.response?.status === 401) {
         setErrMsg("Unauthorized");
       } else {
-        console.log(err);
+        //console.log(err);
         setErrMsg("Login Failed");
       }
     }

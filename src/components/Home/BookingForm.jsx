@@ -31,6 +31,11 @@ const BookingForm = () => {
   const [phoneFocus, setPhoneFocus] = useState(false);
 
   const [submitError, setSubmitError] = useState(true);
+  //set a session variable
+  useEffect(() => {
+    // Set a session variable to indicate that this page has been visited
+    sessionStorage.setItem("visitedRequiredPage", "true");
+  }, []);
 
   //new code start
   const makePayment = async (e) => {

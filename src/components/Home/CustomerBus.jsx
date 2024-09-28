@@ -15,6 +15,7 @@ import getDays from "../../utils/getDays";
 import SeatArrangementForUser from "./SeatArrangementForUser";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Error from "./Error";
 
 const CustomerBus = () => {
   const { searchResults, input, date } = useContext(DataContext);
@@ -32,6 +33,10 @@ const CustomerBus = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const responseData = searchResults.find((result) => result._id === id);
+
+  if (!responseData) {
+    return <Error />;
+  }
   responseData.days = getDays(responseData.selectedDays);
   const slideStyle = "w-96 h-96";
   const imageStyle =

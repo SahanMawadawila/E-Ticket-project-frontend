@@ -34,7 +34,7 @@ const Bus = () => {
           days: getDays(response.data.selectedDays),
         });
       } catch (err) {
-        console.log(err);
+        //console.log(err);
       }
     };
     fetchBus();
@@ -59,7 +59,7 @@ const Bus = () => {
           toast.success("Bus has been deleted successfully");
         } catch (err) {
           toast.error("Something went wrong");
-          console.log(err);
+          //console.log(err);
         }
       };
       deleteBus();
