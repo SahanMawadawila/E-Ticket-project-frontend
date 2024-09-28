@@ -1,10 +1,10 @@
 import React from "react";
 //import axios from "../../api/axios";
-//import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 //import { toast } from "react-toastify";
 
 const About = () => {
-  //const navigate = useNavigate();
+  const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
     const value = sessionStorage.getItem("PDFurl");
@@ -17,6 +17,7 @@ const About = () => {
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
+      navigate("/");
     }
   };
   return (

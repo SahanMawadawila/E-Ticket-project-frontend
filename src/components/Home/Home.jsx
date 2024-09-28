@@ -33,7 +33,7 @@ const Home = () => {
   const imageStyle = "w-full h-auto ";
 
   return (
-    <div>
+    <div className="md:w-full w-[96%] mx-auto text-xs md:text-base">
       <SlideShow
         slides={slides}
         slideStyle={slideStyle}
