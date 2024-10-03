@@ -27,13 +27,13 @@ function Sidebar({ search, setSearch }) {
   }, [wantToLogout]);
   return (
     <div className="md:h-full md:pr-8">
-      <div className="flex md:flex-col justify-items-start gap-2 pt-2 pb-6 ">
+      <div className="flex md:flex-col flex-wrap md:flex-nowrap justify-items-start gap-2 pt-2 pb-6 ">
         <input
           type="search"
           placeholder={`Search a ${busView ? "bus" : "checker"}`}
-          className="border-2 border-gray-300 rounded-md p-2 m-2 
+          className="border-2 border-gray-300 rounded-md p-2 md:m-2 
           hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-sky-600 focus
-          "
+          md:w-[200px] w-full"
           onChange={(e) => setSearch(e.target.value)}
           value={search}
         />

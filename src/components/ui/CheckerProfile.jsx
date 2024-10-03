@@ -1,6 +1,3 @@
-import Card from "react-bootstrap/Card";
-import ListGroup from "react-bootstrap/ListGroup";
-import { Zoom } from "@mui/material";
 import { baseURL } from "../../api/axios";
 import axios from "../../api/axios";
 import ConfirmModal from "./ConfirmModal";
@@ -25,32 +22,55 @@ function CheckerProfile({ checker }) {
       toast.error("Something went wrong");
     }
   };
+  // , name, companyName,email,telephone
 
   return (
     <>
-      <Zoom in={true} style={{ transitionDelay: true ? "100ms" : "0ms" }}>
-        <Card style={{ width: "15rem", height: "15rem" }}>
-          <Card.Img
-            variant="top"
-            src={`${baseURL}/checkerDP/checkers/${checker.url}`}
-            style={{ width: "100%", height: "10vw", objectFit: "cover" }}
-          />
-          <Card.Body>
-            <Card.Title>{checker.name}</Card.Title>
-          </Card.Body>
-          <ListGroup className="list-group-flush">
-            <ListGroup.Item>{checker.companyName}</ListGroup.Item>
-            <ListGroup.Item>{checker.email}</ListGroup.Item>
-            <ListGroup.Item>{checker.telephone}</ListGroup.Item>
-          </ListGroup>
-          <button
-            className="bg-red-500 text-white font-bold py-2 px-4 rounded-bl rounded-br hover:bg-red-600"
-            onClick={handleShow}
-          >
-            Delete
-          </button>
-        </Card>
-      </Zoom>
+      <div className="w-full flex gap-3 bg-white shadow-lg rounded-lg border-2 pl-2 pr-2 text-xs md:text-base items-center pb-1">
+        <img
+          src={`${baseURL}/checkerDP/checkers/${checker.url}`}
+          alt=""
+          className="md:h-20 md:w-20 h-12 w-12 object-cover object-center shadow-2xl
+            rounded-full mt-2 mb-2
+             "
+        />
+        <div className="flex-wrap flex justify-between flex-1 gap-2">
+          <div>
+            <p className="text-gray-600 mb-0 ">Name :</p>
+            <p className="text-gray-900 font-semibold mb-1 md:mb-4">
+              {checker.name}
+            </p>
+          </div>
+          <div>
+            <p className="text-gray-600 mb-0 ">Company :</p>
+            <p className="text-gray-900 font-semibold mb-1 md:mb-4">
+              {checker.companyName}
+            </p>
+          </div>
+          <div>
+            <p className="text-gray-600 mb-0 ">Email :</p>
+            <p className="text-gray-900 font-semibold mb-1 md:mb-4">
+              {checker.email}
+            </p>
+          </div>
+          <div>
+            <p className="text-gray-600 mb-0 ">Tel :</p>
+            <p className="text-gray-900 font-semibold mb-1 md:mb-4">
+              {checker.telephone}
+            </p>
+          </div>
+
+          <div className="self-end">
+            <button
+              onClick={handleShow}
+              className="bg-red-500 text-white font-bold py-2 px-4 rounded hover:bg-red-600 "
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+
       <ConfirmModal
         show={show}
         handleClose={handleClose}

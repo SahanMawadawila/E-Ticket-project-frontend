@@ -60,7 +60,7 @@ const BookingDetails = () => {
       </div>
     );
   return (
-    <div className=" mx-auto p-6 shadow-2xl max-w-[100vw] ">
+    <div className=" md:w-full md:p-6 w-[96%] mx-auto max-w-[100vw] md:text-base text-xs">
       <BookingsTable bookings={swrData.bookings} />
 
       <p className="text-start text-2xl font-bold text-blue-950 pt-3">

@@ -19,7 +19,8 @@ const Bus = () => {
   const [responseData, setResponseData] = useState({});
   const [wantToDeleteTheBus, setWantToDeleteTheBus] = useState(false);
   const { mutate } = useSWRConfig();
-  const slideStyle = "w-96 h-96";
+  const slideStyle =
+    "md:w-96 md:h-96 w-[calc(100vw-25px)] h-[calc(100vw-25px)]";
   const imageStyle =
     "object-cover h-full w-full object-center rounded-md shadow-2xl";
 
@@ -70,8 +71,8 @@ const Bus = () => {
 
   if (loading) return <Loading />;
   return (
-    <div className=" mx-auto p-6 shadow-2xl max-w-[100vw] ">
-      <div className="bg-blue-900 text-white text-center py-2 rounded-t-lg mb-2">
+    <div className="md:w-full md:p-6 w-[96%] mx-auto shadow-2xl md:text-base text-xs">
+      <div className="bg-blue-900 text-white text-center py-0.6 md:py-2 rounded-t-lg mb-2">
         <h2 className="text-xl font-bold">
           Route # {responseData.routeNumber}
         </h2>
@@ -156,7 +157,7 @@ const Bus = () => {
         </div>
       </div>
       <hr />
-      <div className="bg-blue-900 text-white text-center py-1  mb-2">
+      <div className="bg-blue-900 text-white text-center py-0.6 md:py-1 mb-2">
         <h2 className="text-xl font-bold">Seat Arrangement:</h2>
       </div>
       <SeatArrangement seats={responseData.seats} />

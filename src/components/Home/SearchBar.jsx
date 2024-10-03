@@ -92,12 +92,12 @@ const SearchBar = ({
   return (
     <div className="flex-col  shadow-2xl md:max-w-[75vw] lg:max-w-[50vw] mx-w-[100vw] mx-auto p-6">
       {error && <p className="text-red-500 text-center">{error}</p>}
-      <p className="text-center  bg-blue-900 text-white font-bold rounded-md ">
+      <p className="md:text-base text-xs text-center  bg-blue-900 text-white font-bold rounded-md">
         Online Seat Reservation
       </p>
       <div className="flex flex-col gap-3">
         <div className="flex md:flex-row flex-col md:justify-between gap-3 md:gap-0">
-          <div className="flex items-center">
+          <div className="flex items-center gap-1">
             <DepartureBoardIcon />
             <Autocomplete
               disablePortal
@@ -105,14 +105,23 @@ const SearchBar = ({
               options={
                 cities.length > 0 ? cities : ["colombo", "kandy", "galle"]
               }
-              sx={{ width: 200, flexGrow: 1 }}
+              sx={{
+                width: 200,
+                flexGrow: 1,
+                "& .MuiInputBase-root": {
+                  fontSize: {
+                    xs: "0.75rem", // text-xs
+                    md: "1rem", // text-base
+                  },
+                },
+              }}
               renderInput={(params) => <TextField {...params} label="From" />}
               onInputChange={(event, newValue) => {
                 setInput({ ...input, from: newValue });
               }}
             />
           </div>
-          <div className="flex items-center">
+          <div className="flex items-center gap-1">
             <DirectionsBusIcon />
             <Autocomplete
               disablePortal
@@ -120,7 +129,16 @@ const SearchBar = ({
               options={
                 cities.length > 0 ? cities : ["colombo", "kandy", "galle"]
               }
-              sx={{ width: 200, flexGrow: 1 }}
+              sx={{
+                width: 200,
+                flexGrow: 1,
+                "& .MuiInputBase-root": {
+                  fontSize: {
+                    xs: "0.75rem", // text-xs
+                    md: "1rem", // text-base
+                  },
+                },
+              }}
               renderInput={(params) => <TextField {...params} label="To" />}
               onInputChange={(event, newValue) => {
                 setInput({ ...input, to: newValue });
@@ -128,7 +146,7 @@ const SearchBar = ({
             />
           </div>
         </div>
-        <div className="flex items-center">
+        <div className="flex items-center gap-1">
           <DateRangeIcon />
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker
@@ -138,13 +156,22 @@ const SearchBar = ({
                 setDate(newValue);
               }}
               maxDate={dayjs().add(3, "day")}
-              sx={{ width: 200, flexGrow: 1 }}
+              sx={{
+                width: 200,
+                flexGrow: 1,
+                "& .MuiInputBase-root": {
+                  fontSize: {
+                    xs: "0.75rem", // text-xs
+                    md: "1rem", // text-base
+                  },
+                },
+              }}
             />
           </LocalizationProvider>
         </div>
         <div className="flex justify-end">
           <button
-            className="bg-blue-700 text-white font-bold py-2 px-4 rounded hover:bg-blue-800 ml-2"
+            className="md:text-base text-xs bg-blue-700 text-white font-bold py-2 px-4 rounded hover:bg-blue-800 ml-2"
             onClick={handleSearch}
             disabled={searchDisabled}
           >

@@ -74,8 +74,8 @@ const SignIn = ({ handleCloseModal }) => {
         className="hidden lg:block lg:w-1/2 bg-cover"
         style={{
           backgroundImage: adminSelected
-            ? "url(images/admin.avif)"
-            : "url(images/checker.jpg)",
+            ? "url(images/admin.webp)"
+            : "url(images/checker.webp)",
         }}
       ></div>
       <div

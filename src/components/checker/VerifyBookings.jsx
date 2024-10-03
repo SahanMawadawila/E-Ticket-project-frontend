@@ -69,10 +69,10 @@ const VerifyBookings = () => {
   }
 
   return (
-    <>
+    <div className="w-[96%] mx-auto  md:text-base text-xs">
       <QRScanner scanResult={scanResult} setScanResult={setScanResult} />
       <BookingsTable bookings={bookings} />
-    </>
+    </div>
   );
 };
 

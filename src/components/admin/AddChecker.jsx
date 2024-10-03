@@ -9,6 +9,7 @@ import { useContext } from "react";
 import { DataContext } from "../../context/DataContext";
 import { useSWRConfig } from "swr";
 import { toast } from "react-toastify";
+import Loading from "../ui/Loading";
 
 const AddChecker = () => {
   const phoneRegex = /^\d{10}$/;
@@ -22,6 +23,7 @@ const AddChecker = () => {
     telephone: "",
     companyName: "",
   });
+  const [loading, setLoading] = useState(false);
 
   const { setBusView } = useContext(DataContext);
   setBusView(false);
@@ -52,6 +54,7 @@ const AddChecker = () => {
 
   // Handle form submission
   const handleSubmit = async (e) => {
+    setLoading(true);
     e.preventDefault();
     if (
       confirmPasswordError ||
@@ -75,10 +78,12 @@ const AddChecker = () => {
       formData.append("companyName", input.companyName);
       formData.append("image", imageFile);
       await axios.post("/checkers", formData);
+      setLoading(false);
       mutate("/checkers");
       navigate("/admin");
       toast.success("Checker added successfully");
     } catch (err) {
+      setLoading(false);
       if (err.response.status === 400) {
         setLogInError("Missing fields");
       } else if (err.response.status === 409) {
@@ -108,8 +113,12 @@ const AddChecker = () => {
     setLogInError("");
   }, [input]);
 
+  if (loading) {
+    return <Loading />;
+  }
+
   return (
-    <div className=" md:max-w-[50vw] mx-auto p-6 shadow-2xl max-w-[80vw]">
+    <div className=" md:max-w-[50vw] mx-auto p-6 md:shadow-2xl max-w-[100vw]">
       <form>
         <p className="text-center  bg-green-600 text-white font-bold rounded-md ">
           Add Checker

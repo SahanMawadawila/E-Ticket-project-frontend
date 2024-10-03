@@ -34,7 +34,7 @@ const BookingForm = () => {
   //set a session variable
   useEffect(() => {
     // Set a session variable to indicate that this page has been visited
-    sessionStorage.setItem("visitedRequiredPage", "true");
+    localStorage.setItem("visitedRequiredPage", "true");
   }, []);
 
   //new code start
@@ -70,7 +70,7 @@ const BookingForm = () => {
     try {
       const response = await axios.post("/booking", booking);
       const session = response.data;
-      sessionStorage.setItem("PDFurl", session.tempBookId);
+      localStorage.setItem("PDFurl", session.tempBookId);
       const result = stripe.redirectToCheckout({
         sessionId: session.id,
       });

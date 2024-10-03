@@ -1,16 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import axios from "../../api/axios";
 import { useNavigate } from "react-router-dom";
 //import { toast } from "react-toastify";
 import { baseURL } from "../../api/axios";
 import { useEffect } from "react";
+//import Error from "./Error";
+//import useState from "react";
 
 const About = () => {
   const navigate = useNavigate();
+  //const [loading, setLoading] = useState(flase);
 
   useEffect(() => {
     // Check if the session variable is set
-    const visitedRequiredPage = sessionStorage.getItem("visitedRequiredPage");
+    const visitedRequiredPage = localStorage.getItem("visitedRequiredPage");
     if (!visitedRequiredPage) {
       // If the session variable is not set, redirect to an error page or show an error message
       navigate("/error");
@@ -32,10 +35,12 @@ const About = () => {
   };
   const handleDownload = async (e) => {
     e.preventDefault();
-    const value = sessionStorage.getItem("PDFurl");
+    const value = localStorage.getItem("PDFurl");
     if (value) {
       const url = `${baseURL}/pdf/${value}.pdf`;
+      let count = 0;
       const interval = setInterval(async () => {
+        count++;
         const exists = await checkPDFExists(url);
         if (exists) {
           clearInterval(interval);
@@ -46,20 +51,26 @@ const About = () => {
           document.body.appendChild(link);
           link.click();
           document.body.removeChild(link);
-          sessionStorage.removeItem("visitedRequiredPage");
+          localStorage.removeItem("visitedRequiredPage");
           navigate("/");
+        }
+        if (count > 5) {
+          clearInterval(interval);
+          localStorage.removeItem("visitedRequiredPage");
+          navigate("/error");
         }
       }, 1000); // Check every 1 seconds
     }
   };
+
   return (
-    <div className=" md:max-w-[90vw] mx-auto p-6 shadow-2xl max-w-[100vw]">
+    <div className=" md:max-w-[90vw] mx-auto p-6 max-w-[100vw] md:text-base text-xs">
       <form>
         <h1 className="text-2xl font-semibold mb-4">
           Important Instructions for Your Bus Booking
         </h1>
 
-        <ol className="list-decimal list-inside space-y-4">
+        <ol className="list-decimal list-outside space-y-4">
           <li>
             The QR code is located in the right side of this PDF document.
           </li>

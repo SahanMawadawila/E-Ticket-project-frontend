@@ -10,6 +10,7 @@ import { DataContext } from "../../context/DataContext";
 import { Autocomplete, TextField } from "@mui/material";
 import { toast } from "react-toastify";
 import { useSWRConfig } from "swr";
+import Loading from "../ui/Loading";
 
 const AddBus = () => {
   const REGEX_NUMBER = /^[\d/]+$/;
@@ -95,6 +96,7 @@ const AddBus = () => {
   const [submitErr, setSubmitErr] = useState(true);
   const [errMsg, setErrMsg] = useState("");
   const [pushErr, setPushErr] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const errRef = useRef();
 
@@ -102,6 +104,7 @@ const AddBus = () => {
 
   const handleClick = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     try {
       const formData = new FormData();
@@ -132,6 +135,7 @@ const AddBus = () => {
           "Content-Type": "multipart/form-data",
         },
       });
+      setLoading(false);
       setBus({
         routeNumber: "",
         busName: "",
@@ -153,6 +157,7 @@ const AddBus = () => {
       navigate("/admin");
       toast.success("Bus Added Successfully");
     } catch (err) {
+      setLoading(false);
       if (!err?.response) {
         setErrMsg("No Server Response");
       } else if (err.response?.status === 400) {
@@ -260,8 +265,12 @@ const AddBus = () => {
     }
   }, [oneRowOfTable, cityError, haltsError]);
 
+  if (loading) {
+    return <Loading />;
+  }
+
   return (
-    <div className=" md:max-w-[90vw] mx-auto p-6 shadow-2xl max-w-[100vw]">
+    <div className=" md:max-w-[90vw] mx-auto p-6 md:shadow-2xl max-w-[100vw]">
       <form>
         <div className="flex flex-col">
           <p className="text-center  bg-cyan-600 text-white font-bold rounded-md ">

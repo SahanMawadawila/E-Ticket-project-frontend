@@ -27,12 +27,10 @@ const CheckerFeed = ({ filteredCheckers, setCheckers }) => {
     return <div className="text-center text-2xl">No checkers found</div>;
 
   return (
-    <div className="flex flex-grow">
-      <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 p-4 flex-1">
-        {filteredCheckers.map((checker, id) => (
-          <CheckerProfile key={id} checker={checker} />
-        ))}
-      </div>
+    <div className="flex flex-col w-full gap-2">
+      {filteredCheckers.map((checker, id) => (
+        <CheckerProfile key={id} checker={checker} />
+      ))}
     </div>
   );
 };

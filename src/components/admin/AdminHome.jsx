@@ -66,7 +66,7 @@ const AdminHome = () => {
   if (loading) return <Loading />;
   return (
     <>
-      <div className="flex md:justify-items-start flex-col md:flex-row">
+      <div className="w-[96%] mx-auto flex md:justify-items-start flex-col md:flex-row md:text-base text-xs">
         <div>
           <Sidebar search={search} setSearch={setSearch} />
         </div>

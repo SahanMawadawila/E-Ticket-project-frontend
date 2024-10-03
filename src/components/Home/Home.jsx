@@ -24,10 +24,10 @@ const Home = () => {
   const [error, setError] = useState([]);
 
   const slides = [
-    "images/background4.jpg",
-    "images/background3.jpg",
-    "images/background1.jpg",
-    "images/background2.jpg",
+    "images/background4.webp",
+    "images/background3.webp",
+    "images/background1_1.webp",
+    "images/background2_1.webp",
   ];
   const slideStyle = "realative  w-full";
   const imageStyle = "w-full h-auto ";

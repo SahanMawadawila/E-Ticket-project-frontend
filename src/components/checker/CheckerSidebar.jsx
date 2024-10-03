@@ -26,12 +26,13 @@ const CheckerSidebar = ({ search, setSearch }) => {
           placeholder="Search a bus"
           className="border-2 border-gray-300 rounded-md p-2 m-2 
           hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-sky-600 focus
+          w-full md:w-[200px]
           "
           onChange={(e) => setSearch(e.target.value)}
           value={search}
         />
         <button
-          className="flex items-center space-x-4  bg-sky-600  hover:bg-gradient-to-r from-sky-600 to-cyan-400 px-3 py-3 hover: text-white"
+          className="flex items-center space-x-4  bg-blue-800 hover:bg-gradient-to-r from-blue-800 to-blue-900 px-3 py-3 hover: text-white"
           onClick={() => setShow(true)}
         >
           <LogoutIcon />
