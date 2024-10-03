@@ -107,7 +107,7 @@ const BookingForm = () => {
   }, [idError, phoneError, formData.email]);
 
   return (
-    <div className=" md:max-w-[90vw] mx-auto p-6 shadow-2xl max-w-[100vw]">
+    <div className=" md:max-w-[90vw] mx-auto p-6 md:shadow-2xl max-w-[100vw]">
       <form>
         <p className="text-center bg-orange-900 text-white font-bold rounded-md ">
           Booking Form

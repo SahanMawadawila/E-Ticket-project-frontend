@@ -26,7 +26,7 @@ function CheckerProfile({ checker }) {
 
   return (
     <>
-      <div className="w-full flex gap-3 bg-white shadow-lg rounded-lg border-2 pl-2 pr-2 text-xs md:text-base items-center pb-1">
+      <div className="w-full flex gap-3 bg-white md:shadow-lg rounded-lg border-2 pl-2 pr-2 text-xs md:text-base items-center pb-1">
         <img
           src={`${baseURL}/checkerDP/checkers/${checker.url}`}
           alt=""

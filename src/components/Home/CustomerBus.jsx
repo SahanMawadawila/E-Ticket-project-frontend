@@ -14,12 +14,11 @@ import SeatArrangementForUser from "./SeatArrangementForUser";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Error from "./Error";
-
 const CustomerBus = () => {
   const { searchResults, input, date } = useContext(DataContext);
   const [selectedSeats, setSelectedSeats] = useState([]);
-  const toggleSeatSelection = (seatNumber, bookable, availabilityBoolean) => {
-    if (!bookable || !availabilityBoolean) {
+  const toggleSeatSelection = (seatNumber, availabilityBoolean) => {
+    if (availabilityBoolean !== 3) {
       return;
     }
     if (selectedSeats.includes(seatNumber)) {
@@ -35,6 +34,7 @@ const CustomerBus = () => {
   if (!responseData) {
     return <Error />;
   }
+
   responseData.days = getDays(responseData.selectedDays);
   const slideStyle =
     "md:w-96 md:h-96 w-[calc(100vw-25px)] h-[calc(100vw-25px)]";
@@ -42,7 +42,7 @@ const CustomerBus = () => {
     "object-cover h-full w-full object-center rounded-md shadow-2xl ";
 
   return (
-    <div className="text-xs md:text-base mx-auto md:p-6 shadow-2xl md:w-full w-[96%] ">
+    <div className="text-xs md:text-base mx-auto md:p-6 shadow-2xl md:w-full w-[96%] pb-2">
       <div className="bg-blue-900 text-white text-center py-0.6 md:py-2 rounded-t-lg mb-2">
         <h2 className="text-xl font-bold self-center">
           {`Route # ${responseData.routeNumber} ${responseData.busFrom.city} - ${responseData.busTo.city}`}
@@ -176,15 +176,12 @@ const CustomerBus = () => {
       />
       {selectedSeats.length > 0 && (
         <div className="flex justify-end items-end mt-4">
-          <p
-            className="font-bold text-xl pr-4 pt-0 pb-0 pl-2 mb-0"
-            style={{ color: "#063970" }}
-          >
+          <p className="font-bold text-xl pr-4 pt-0 pb-0 pl-2 mb-0 text-gray-600">
             Total : Rs.{" "}
             {formatNumber(responseData.thisBusPrice * selectedSeats.length)}
           </p>
           <button
-            className="bg-red-500 text-white p-2 rounded-md hover:bg-red-600"
+            className="bg-red-800 text-white p-2 rounded-md hover:bg-red-900"
             onClick={() =>
               navigate(`/${id}/booking/${selectedSeats.join(",")}`)
             }

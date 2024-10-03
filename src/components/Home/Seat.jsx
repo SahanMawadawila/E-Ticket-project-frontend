@@ -3,31 +3,29 @@ import EventSeatIcon from "@mui/icons-material/EventSeat";
 import Button from "@mui/material/Button";
 
 const Seat = ({
-  bookable,
   availabilityBoolean,
   children,
   seatNumber,
   toggleSeatSelection,
   selectedSeats,
 }) => {
-  const backgroundColorSelector = (isBookable, availabilityBoolean) => {
-    if (!isBookable) {
+  const backgroundColorSelector = (availabilityBoolean) => {
+    if (availabilityBoolean === 0) {
       return "bg-gray-800"; // not bookable
-    } else if (availabilityBoolean) {
+    } else if (availabilityBoolean === 3) {
       return "bg-green-500"; //bookable and available
+    } else if (availabilityBoolean === 1) {
+      return "bg-red-500"; //bookable but not available
     }
-    return "bg-red-500"; //bookable but not available
+    return "bg-indigo-600"; //bookable but prossesing
   };
 
   return (
     <Button
-      onClick={() =>
-        toggleSeatSelection(seatNumber, bookable, availabilityBoolean)
-      }
+      onClick={() => toggleSeatSelection(seatNumber, availabilityBoolean)}
     >
       <div
         className={`flex flex-col items-center justify-center border-2 rounded-md md:w-20 md:h-20 w-10 h-10 ${backgroundColorSelector(
-          bookable,
           availabilityBoolean
         )}`}
         style={{

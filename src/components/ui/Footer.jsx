@@ -17,32 +17,98 @@ export default function Footer() {
       <Container maxWidth="lg">
         <Grid container spacing={5} alignItems="center" justifyContent="center">
           <Grid item xs={12} sm={4}>
-            <Typography variant="h6" color="text.primary" gutterBottom>
+            <Typography
+              variant="h6"
+              color="text.primary"
+              gutterBottom
+              sx={{
+                fontSize: {
+                  xs: "0.75rem", // text-xs
+                  md: "1rem", // text-base
+                },
+              }}
+            >
               About Us
             </Typography>
-            <Typography variant="body2" color="text.secondary">
+            <Typography
+              variant="body2"
+              color="text.secondary"
+              sx={{
+                fontSize: {
+                  xs: "0.75rem", // text-xs
+                  md: "1rem", // text-base
+                },
+              }}
+            >
               We are undergraduate students of faculty of Engineering at
               University of Sri Jayewardenepura. This is our project for the
               course of Computer Engineering.
             </Typography>
           </Grid>
           <Grid item xs={12} sm={4} alignItems="center" justifyContent="center">
-            <Typography variant="h6" color="text.primary" gutterBottom>
+            <Typography
+              variant="h6"
+              color="text.primary"
+              gutterBottom
+              sx={{
+                fontSize: {
+                  xs: "0.75rem", // text-xs
+                  md: "1rem", // text-base
+                },
+              }}
+            >
               Contact Us
             </Typography>
-            <Typography variant="body2" color="text.secondary">
+            <Typography
+              variant="body2"
+              color="text.secondary"
+              sx={{
+                fontSize: {
+                  xs: "0.75rem", // text-xs
+                  md: "1rem", // text-base
+                },
+              }}
+            >
               Faculty of Engineering, <br />
               University of Sri Jayewardenepura, Nugegoda
             </Typography>
-            <Typography variant="body2" color="text.secondary">
+            <Typography
+              variant="body2"
+              color="text.secondary"
+              sx={{
+                fontSize: {
+                  xs: "0.75rem", // text-xs
+                  md: "1rem", // text-base
+                },
+              }}
+            >
               Email: sjpgrouptravel@gmail.com
             </Typography>
-            <Typography variant="body2" color="text.secondary">
+            <Typography
+              variant="body2"
+              color="text.secondary"
+              sx={{
+                fontSize: {
+                  xs: "0.75rem", // text-xs
+                  md: "1rem", // text-base
+                },
+              }}
+            >
               Phone: +1 234 567 8901
             </Typography>
           </Grid>
           <Grid item xs={12} sm={4} alignItems="center" justifyContent="center">
-            <Typography variant="h6" color="text.primary" gutterBottom>
+            <Typography
+              variant="h6"
+              color="text.primary"
+              gutterBottom
+              sx={{
+                fontSize: {
+                  xs: "0.75rem", // text-xs
+                  md: "1rem", // text-base
+                },
+              }}
+            >
               Follow Us
             </Typography>
             <Link href="https://www.facebook.com/" color="inherit">
@@ -61,7 +127,17 @@ export default function Footer() {
           </Grid>
         </Grid>
         <Box mt={5}>
-          <Typography variant="body2" color="text.secondary" align="center">
+          <Typography
+            variant="body2"
+            color="text.secondary"
+            align="center"
+            sx={{
+              fontSize: {
+                xs: "0.75rem", // text-xs
+                md: "1rem", // text-base
+              },
+            }}
+          >
             {"Copyright © "}
             <Link color="inherit" href="https://your-website.com/">
               Eseats.lk

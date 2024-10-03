@@ -11,6 +11,7 @@ const Home = () => {
   const { setAuth } = useContext(AuthContext);
   const { searchResults, setSearchResults, input, setInput, date, setDate } =
     useContext(DataContext);
+
   useEffect(() => {
     setAuth({ admin: false, checker: false });
   }, []);
