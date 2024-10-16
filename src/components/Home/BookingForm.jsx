@@ -78,7 +78,13 @@ const BookingForm = () => {
         toast.error("An error occurred while processing the payment");
       }
     } catch (err) {
-      toast.error("An error occurred while processing the payment");
+      if (err.response.status === 409) {
+        toast.error(err.response.data.message);
+      } else {
+        toast.error("An error occurred while processing the payment");
+      }
+
+      navigate(`/`);
     }
   };
 
