@@ -71,19 +71,24 @@ const BookingForm = () => {
       const response = await axios.post("/booking", booking);
       const session = response.data;
       localStorage.setItem("PDFurl", session.tempBookId);
-      const result = stripe.redirectToCheckout({
-        sessionId: session.id,
-      });
-      if (result.error) {
-        toast.error("An error occurred while processing the payment");
-      }
+
+      const newWindow = window.open(session.url, "_blank");
+      localStorage.setItem("success", "false");
+
+      setTimeout(() => {
+        const ifsuccess = localStorage.getItem("success");
+        if (ifsuccess === "false") {
+          toast.error("Payment Timed Out. Please try again.");
+          newWindow.close();
+        }
+        navigate("/");
+      }, 5 * 60000); // 30 seconds
     } catch (err) {
       if (err.response.status === 409) {
         toast.error(err.response.data.message);
       } else {
         toast.error("An error occurred while processing the payment");
       }
-
       navigate(`/`);
     }
   };

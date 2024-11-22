@@ -25,43 +25,8 @@ const About = () => {
     }; */
   }, [navigate]);
 
-  const checkPDFExists = async (url) => {
-    try {
-      await axios.head(url); //head request similar to get request but only returns headers, That can be used to check if the file exists
-      return true;
-    } catch (error) {
-      return false;
-    }
-  };
-  const handleDownload = async (e) => {
-    e.preventDefault();
-    const value = localStorage.getItem("PDFurl");
-    if (value) {
-      const url = `${baseURL}/pdf/${value}.pdf`;
-      let count = 0;
-      const interval = setInterval(async () => {
-        count++;
-        const exists = await checkPDFExists(url);
-        if (exists) {
-          clearInterval(interval);
-          const link = document.createElement("a");
-          link.href = url;
-          link.target = "_blank";
-          link.download = `${value}.pdf`;
-          document.body.appendChild(link);
-          link.click();
-          document.body.removeChild(link);
-          localStorage.removeItem("visitedRequiredPage");
-          navigate("/");
-        }
-        if (count > 5) {
-          clearInterval(interval);
-          localStorage.removeItem("visitedRequiredPage");
-          navigate("/error");
-        }
-      }, 1000); // Check every 1 seconds
-    }
-  };
+  const value = localStorage.getItem("PDFurl");
+  localStorage.setItem("success", "true");
 
   return (
     <div className=" md:max-w-[90vw] mx-auto p-6 max-w-[100vw] md:text-base text-xs">
@@ -91,12 +56,13 @@ const About = () => {
           please contact our customer support.
         </p>
         <div className="flex justify-center mt-4">
-          <button
-            className="bg-orange-500 text-white p-2 rounded-md"
-            onClick={handleDownload}
+          <a
+            href={`${baseURL}/pdf/${value}.pdf`}
+            target="_blank"
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
           >
             Download PDF
-          </button>
+          </a>
         </div>
       </form>
     </div>
