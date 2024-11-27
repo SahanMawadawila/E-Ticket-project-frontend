@@ -82,7 +82,7 @@ const BookingForm = () => {
           newWindow.close();
         }
         navigate("/");
-      }, 5 * 60000); // 30 seconds
+      }, 5 * 60000); // 5 minutes
     } catch (err) {
       if (err.response.status === 409) {
         toast.error(err.response.data.message);
